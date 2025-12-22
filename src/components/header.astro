@@ -4,7 +4,7 @@ const links = [
     { titulo: "Serviços", href: "#servicos" },
     { titulo: "Vantagens", href: "#vantagens" },
     { titulo: "Sobre", href: "#sobre" },
-    { titulo: "Simulador", href: "#calculadora" },
+    { titulo: "Planos", href: "/planos" },
     // { titulo: "Depoimentos", href: "#depoimentos" },
 ];
 ---
@@ -23,7 +23,7 @@ const links = [
         </div>
 
         <!-- Menu Desktop -->
-        <nav class="hidden lg:flex items-center gap-8">
+        <nav class="hidden xl:flex items-center gap-8">
             {links.map((link) => (
                 <a 
                     href={link.href} 
