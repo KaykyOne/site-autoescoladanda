@@ -1,12 +1,24 @@
 ---
-import Calculator from "../components/calculator";
 import Layout from "../layout.astro";
-
+import Heroi from "../components/Heroi.astro";
+import Servicos from "../components/Servicos.astro";
+import Vantagens from "../components/Vantagens.astro";
+import SobreNos from "../components/SobreNos.astro";
+import SecaoCalculadora from "../components/SecaoCalculadora.astro";
+import Depoimentos from "../components/Depoimentos.astro";
+import Contato from "../components/Contato.astro";
+import Rodape from "../components/Rodape.astro";
 ---
 
 <Layout>
-	<div class="flex flex-col min-h-screen pt-30 items-center justify-start corpo gap-10">
-		<h1 class="text-5xl font-bold">Boa </h1>
-		<Calculator client:load/>
-	</div>
+	<main class="flex flex-col w-full justify-center items-center">
+		<Heroi />
+		<Servicos />
+		<Vantagens />
+		<SobreNos />
+		<SecaoCalculadora />
+		<Depoimentos />
+		<Contato />
+		<Rodape />
+	</main>
 </Layout>

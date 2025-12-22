@@ -1,12 +1,91 @@
-<header
-    class="fixed top-0 h-25 flex items-center justify-cente z-10 corpo"
->
-    <div class="flex items-center justify-center gap-5">
-        <img
-            class="h-12 w-12"
-            src="/favicon.svg"
-            alt="Autoescola Danda Logo"
-        />
-        <a class="text-2xl font-light text-neutral-600" href="/">Autoescola <strong>Danda</strong></a>
+---
+const links = [
+    { titulo: "Início", href: "#" },
+    { titulo: "Serviços", href: "#servicos" },
+    { titulo: "Vantagens", href: "#vantagens" },
+    { titulo: "Sobre", href: "#sobre" },
+    { titulo: "Simulador", href: "#calculadora" },
+    { titulo: "Depoimentos", href: "#depoimentos" },
+];
+---
+
+<header class="fixed top-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50">
+    <div class="corpo mx-auto h-20 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <img
+                class="h-10 w-10"
+                src="/favicon.svg"
+                alt="Autoescola Danda Logo"
+            />
+            <a class="text-xl font-light text-neutral-600" href="/">
+                Autoescola <strong class="text-primary">Danda</strong>
+            </a>
+        </div>
+
+        <!-- Menu Desktop -->
+        <nav class="hidden lg:flex items-center gap-8">
+            {links.map((link) => (
+                <a 
+                    href={link.href} 
+                    class="text-neutral-600 hover:text-primary transition-all font-medium"
+                >
+                    {link.titulo}
+                </a>
+            ))}
+        </nav>
+
+        <div class="flex items-center gap-4">
+            <a 
+                href="#contato" 
+                class="hidden md:flex bg-primary text-white px-6 py-3 rounded-full font-medium hover:bg-primary/90 transition-all items-center gap-2"
+            >
+                <span class="material-symbols-outlined text-lg">phone</span>
+                Contato
+            </a>
+            
+            <!-- Menu Mobile Button -->
+            <button 
+                id="menu-toggle"
+                class="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg hover:bg-neutral-100 transition-all"
+            >
+                <span class="material-symbols-outlined text-2xl text-neutral-700">menu</span>
+            </button>
+        </div>
     </div>
+
+    <!-- Menu Mobile -->
+    <nav id="menu-mobile" class="lg:hidden hidden flex-col bg-white border-t border-neutral-100 pb-4">
+        {links.map((link) => (
+            <a 
+                href={link.href} 
+                class="px-7 py-3 text-neutral-600 hover:text-primary hover:bg-neutral-50 transition-all font-medium"
+            >
+                {link.titulo}
+            </a>
+        ))}
+        <a 
+            href="#contato" 
+            class="mx-7 mt-3 bg-primary text-white px-6 py-3 rounded-full font-medium hover:bg-primary/90 transition-all text-center"
+        >
+            Contato
+        </a>
+    </nav>
 </header>
+
+<script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const menuMobile = document.getElementById('menu-mobile');
+    
+    menuToggle?.addEventListener('click', () => {
+        menuMobile?.classList.toggle('hidden');
+        menuMobile?.classList.toggle('flex');
+    });
+
+    // Fecha o menu ao clicar em um link
+    menuMobile?.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            menuMobile.classList.add('hidden');
+            menuMobile.classList.remove('flex');
+        });
+    });
+</script>

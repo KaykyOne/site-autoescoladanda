@@ -32,7 +32,7 @@ export default function Calculator() {
     const RenderInputs = () => {
         if (tipo === 'moto') {
             return (
-                <div className='flex flex-col'>
+                <div className='flex flex-col animcao-entrada'>
                     <label htmlFor='aulasMoto' className='mt-6 text-lg font-medium'>Número de aulas de moto:</label>
                     <div className='flex gap-2 items-center'>
                         <button className='input-button' onClick={() => alterarAulas('moto', numAulasMoto - 1)}>-</button>
@@ -43,7 +43,7 @@ export default function Calculator() {
             )
         } else if (tipo === 'carro') {
             return (
-                <div className='flex flex-col'>
+                <div className='flex flex-col animcao-entrada'>
                     <label htmlFor='aulasCarro' className='mt-6 text-lg font-medium'>Número de aulas de carro:</label>
                     <div className='flex gap-2 items-center'>
                         <button className='input-button' onClick={() => alterarAulas('carro', numAulasCarro - 1)}>-</button>
@@ -56,7 +56,7 @@ export default function Calculator() {
 
         return (
             <>
-                <div className='flex flex-col'>
+                <div className='flex flex-col animcao-entrada'>
                     <label htmlFor='aulasMoto' className='mt-6 text-lg font-medium'>Número de aulas de moto:</label>
                     <div className='flex gap-2 items-center'>
                         <button className='input-button' onClick={() => alterarAulas('moto', numAulasMoto - 1)}>-</button>
@@ -64,7 +64,7 @@ export default function Calculator() {
                         <button className='input-button' onClick={() => alterarAulas('moto', numAulasMoto + 1)}>+</button>
                     </div>
                 </div>
-                <div className='flex flex-col'>
+                <div className='flex flex-col animcao-entrada'>
                     <label htmlFor='aulasCarro' className='mt-6 text-lg font-medium'>Número de aulas de carro:</label>
                     <div className='flex gap-2 items-center'>
                         <button className='input-button' onClick={() => alterarAulas('carro', numAulasCarro - 1)}>-</button>
@@ -103,7 +103,7 @@ export default function Calculator() {
 
                 <h3 className='text-md uppercase opacity-70'>Descubra qual o pacote</h3>
                 <h1 className='text-6xl font-semibold'>Perfeito para você</h1>
-                <h2 className='text-2xl font-light'>Escolha a quantidade de aulas e </h2>
+                <h2 className='text-2xl font-light mt-2'>Configure a melhor forma de tirar a sua CNH!</h2>
 
                 <fieldset className='mt-8 flex gap-3'>
                     <legend className='mt-10 text-2xl font-medium'>Escolha o plano:</legend>

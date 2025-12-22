@@ -1,0 +1,81 @@
+---
+const vantagens = [
+    {
+        icone: "payments",
+        titulo: "Preço Acessível",
+        descricao: "Planos que cabem no seu bolso com condições especiais de pagamento."
+    },
+    {
+        icone: "schedule",
+        titulo: "Horários Flexíveis",
+        descricao: "Agende suas aulas nos horários que melhor se encaixam na sua rotina."
+    },
+    {
+        icone: "workspace_premium",
+        titulo: "Instrutores Qualificados",
+        descricao: "Profissionais experientes e pacientes para ensinar você da melhor forma."
+    },
+    {
+        icone: "directions_car_filled",
+        titulo: "Frota Moderna",
+        descricao: "Veículos novos e bem conservados para seu aprendizado."
+    },
+    {
+        icone: "verified",
+        titulo: "Alta Taxa de Aprovação",
+        descricao: "Metodologia comprovada com mais de 95% de aprovação."
+    },
+    {
+        icone: "support_agent",
+        titulo: "Suporte Completo",
+        descricao: "Acompanhamento em todo o processo, do início até a CNH."
+    }
+];
+---
+
+<section id="vantagens" class="w-full py-20">
+    <div class="corpo mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+                <p class="text-primary font-semibold uppercase tracking-wider mb-2">Por que nos escolher?</p>
+                <h2 class="text-4xl md:text-5xl font-bold text-neutral-800 mb-6">
+                    Vantagens de aprender na Danda
+                </h2>
+                <p class="text-neutral-500 text-lg leading-relaxed mb-8">
+                    Na Autoescola Danda, você encontra tudo o que precisa para tirar sua CNH 
+                    com tranquilidade. Nossa missão é tornar o processo de habilitação simples 
+                    e acessível para todos.
+                </p>
+                
+                <div class="flex gap-8">
+                    <div class="text-center">
+                        <p class="text-4xl font-bold text-primary">+10</p>
+                        <p class="text-neutral-500">Anos de experiência</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-4xl font-bold text-primary">95%</p>
+                        <p class="text-neutral-500">Taxa de aprovação</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-4xl font-bold text-primary">+500</p>
+                        <p class="text-neutral-500">Alunos formados</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {vantagens.map((vantagem) => (
+                    <div class="flex gap-4 p-5 rounded-xl bg-neutral-50 hover:bg-primary/5 transition-all">
+                        <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-primary text-2xl">{vantagem.icone}</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-neutral-800 mb-1">{vantagem.titulo}</h3>
+                            <p class="text-sm text-neutral-500">{vantagem.descricao}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div>
+</section>

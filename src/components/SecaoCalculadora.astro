@@ -1,0 +1,19 @@
+---
+import Calculator from "./calculator";
+---
+
+<section id="calculadora" class="w-full py-20 bg-neutral-50">
+    <div class="corpo mx-auto">
+        <div class="text-center mb-12">
+            <p class="text-primary font-semibold uppercase tracking-wider mb-2">Simulador de Preços</p>
+            <h2 class="text-4xl md:text-5xl font-bold text-neutral-800">
+                Monte seu plano ideal
+            </h2>
+            <p class="text-neutral-500 mt-4 max-w-2xl mx-auto">
+                Use nossa calculadora interativa para descobrir o melhor pacote para você.
+            </p>
+        </div>
+        
+        <Calculator client:load />
+    </div>
+</section>

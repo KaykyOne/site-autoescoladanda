@@ -1,0 +1,66 @@
+---
+const servicos = [
+    {
+        icone: "directions_car",
+        titulo: "Categoria B - Carro",
+        descricao: "Aprenda a dirigir carros com instrutores experientes e veículos modernos.",
+        cor: "primary"
+    },
+    {
+        icone: "two_wheeler",
+        titulo: "Categoria A - Moto",
+        descricao: "Domine a pilotagem de motos com segurança e confiança nas ruas.",
+        cor: "secondary"
+    },
+    {
+        icone: "school",
+        titulo: "Aulas Teóricas",
+        descricao: "Material didático atualizado e aulas dinâmicas para você aprender tudo.",
+        cor: "primary"
+    },
+    {
+        icone: "autorenew",
+        titulo: "Renovação de CNH",
+        descricao: "Processo rápido e descomplicado para renovar sua habilitação.",
+        cor: "secondary"
+    },
+    {
+        icone: "add_card",
+        titulo: "Adição de Categoria",
+        descricao: "Adicione novas categorias à sua CNH com facilidade.",
+        cor: "primary"
+    },
+    {
+        icone: "replay",
+        titulo: "Reciclagem",
+        descricao: "Curso de reciclagem para recuperar o direito de dirigir.",
+        cor: "secondary"
+    }
+];
+---
+
+<section id="servicos" class="w-full py-20 bg-neutral-50">
+    <div class="corpo mx-auto">
+        <div class="text-center mb-16">
+            <p class="text-primary font-semibold uppercase tracking-wider mb-2">Nossos Serviços</p>
+            <h2 class="text-4xl md:text-5xl font-bold text-neutral-800">
+                O que oferecemos para você
+            </h2>
+            <p class="text-neutral-500 mt-4 max-w-2xl mx-auto">
+                Conheça todos os serviços disponíveis na Autoescola Danda para você conquistar sua habilitação.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {servicos.map((servico) => (
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-neutral-100">
+                    <div class={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 ${servico.cor === 'primary' ? 'bg-primary/10 text-primary' : 'bg-secondary/10 text-secondary'}`}>
+                        <span class="material-symbols-outlined text-3xl">{servico.icone}</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-neutral-800 mb-3">{servico.titulo}</h3>
+                    <p class="text-neutral-500 leading-relaxed">{servico.descricao}</p>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>

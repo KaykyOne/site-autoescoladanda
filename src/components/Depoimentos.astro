@@ -1,0 +1,70 @@
+---
+const depoimentos = [
+    {
+        nome: "Maria Silva",
+        foto: "https://i.pravatar.cc/150?img=1",
+        texto: "Tirei minha CNH na Danda e foi a melhor escolha! Os instrutores são muito pacientes e o preço é justo. Recomendo demais!",
+        categoria: "Categoria B",
+        estrelas: 5
+    },
+    {
+        nome: "João Santos",
+        foto: "https://i.pravatar.cc/150?img=3",
+        texto: "Estava com muito medo de dirigir, mas na Autoescola Danda me senti seguro desde a primeira aula. Passei de primeira!",
+        categoria: "Categoria A e B",
+        estrelas: 5
+    },
+    {
+        nome: "Ana Oliveira",
+        foto: "https://i.pravatar.cc/150?img=5",
+        texto: "O atendimento é excelente e os horários são muito flexíveis. Consegui conciliar com meu trabalho sem problemas.",
+        categoria: "Categoria A",
+        estrelas: 5
+    },
+    {
+        nome: "Pedro Costa",
+        foto: "https://i.pravatar.cc/150?img=8",
+        texto: "Melhor autoescola da região! Equipe muito profissional e acolhedora. Minha esposa também tirou a CNH aqui.",
+        categoria: "Categoria B",
+        estrelas: 5
+    }
+];
+---
+
+<section id="depoimentos" class="w-full py-20 bg-gradient-to-br from-primary to-primary/90">
+    <div class="corpo mx-auto">
+        <div class="text-center mb-16">
+            <p class="text-white/70 font-semibold uppercase tracking-wider mb-2">Depoimentos</p>
+            <h2 class="text-4xl md:text-5xl font-bold text-white">
+                O que nossos alunos dizem
+            </h2>
+            <p class="text-white/70 mt-4 max-w-2xl mx-auto">
+                Veja a experiência de quem já conquistou a CNH com a gente.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {depoimentos.map((depoimento) => (
+                <div class="bg-white rounded-2xl p-6 shadow-lg">
+                    <div class="flex gap-1 mb-4">
+                        {Array.from({ length: depoimento.estrelas }).map(() => (
+                            <span class="material-symbols-outlined text-yellow-400 text-xl">star</span>
+                        ))}
+                    </div>
+                    <p class="text-neutral-600 mb-6 leading-relaxed">"{depoimento.texto}"</p>
+                    <div class="flex items-center gap-3">
+                        <img 
+                            src={depoimento.foto} 
+                            alt={depoimento.nome}
+                            class="w-12 h-12 rounded-full object-cover"
+                        />
+                        <div>
+                            <p class="font-bold text-neutral-800">{depoimento.nome}</p>
+                            <p class="text-sm text-primary">{depoimento.categoria}</p>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>

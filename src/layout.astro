@@ -1,20 +1,45 @@
 ---
 import "./global.css";
-const title = Astro.props.title || "Autoescola Danda";
+const title = Astro.props.title || "Autoescola Danda - Sua CNH com qualidade e preço acessível";
+const description = Astro.props.description || "Autoescola Danda: mais de 10 anos formando motoristas. Categorias A e B, renovação, reciclagem. Preço justo e alta taxa de aprovação.";
 import Header from "./components/header.astro";
 ---
 
-<html lang="en">
+<html lang="pt-BR">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="generator" content={Astro.generator} />
+        <meta name="description" content={description} />
+        <meta name="keywords" content="autoescola, CNH, habilitação, carta de motorista, aulas de direção, categoria A, categoria B, moto, carro" />
+        <meta name="author" content="Autoescola Danda" />
+        
+        <!-- Open Graph -->
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="pt_BR" />
+        
         <title>{title}</title>
+        
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        />
         <link
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,1,0"
             rel="stylesheet"
         />
+        
+        <style>
+            body {
+                font-family: 'Inter', sans-serif;
+            }
+        </style>
     </head>
     <body class="flex flex-col items-center overflow-x-hidden">
         <Header />
