@@ -13,6 +13,10 @@ body {
   @apply text-neutral-800;
 }
 
+main{
+  overflow-x: hidden;
+}
+
 .corpo {
   @apply px-7 w-screen md:w-[80vw] lg:w-[70vw] max-w-7xl;
 }
