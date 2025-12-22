@@ -3,13 +3,14 @@ import "./global.css";
 const title = Astro.props.title || "Autoescola Danda | Aparecida do Taboado - MS | CNH Categoria A e B";
 const description = Astro.props.description || "Autoescola Danda em Aparecida do Taboado - MS. Mais de 10 anos formando motoristas na região. CNH categorias A e B, renovação e reciclagem. Preço justo e alta taxa de aprovação. Ligue: (67) 98136-8080";
 import Header from "./components/header.astro";
+
 ---
 
 <html lang="pt-BR">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" type="image/png" href="favicon.png" />
+        <link rel="icon" type="image/png" href={"favicon.png"} />
         <link rel="canonical" href="https://autoescoladanda.com.br/" />
         <meta name="generator" content={Astro.generator} />
         <meta name="description" content={description} />
