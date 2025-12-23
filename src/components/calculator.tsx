@@ -264,7 +264,18 @@ export default function Calculator() {
         setNumAulasCarro(2)
         setValorAula(100)
         setTipo('carroMoto')
-        setNumeroParcelas(1)
+        setNumeroParcelas(6)
+    }
+
+    const enviarMensagem = () => {
+        const mensagem = `Olá, gostaria de iniciar meu processo para tirar a CNH com o seguinte plano:%0A%0A` +
+            `Tipo: ${tipo === 'carroMoto' ? 'Carro e Moto' : tipo === 'carro' ? 'Apenas Carro' : 'Apenas Moto'}%0A` +
+            `Número de aulas de ${tipo === 'carroMoto' ? `carro: ${numAulasCarro}%0ANúmero de aulas de moto: ${numAulasMoto}%0A` : (tipo === 'carro' ? `carro: ${numAulasCarro}%0A` : `moto: ${numAulasMoto}%0A`)}` +
+            `Número de parcelas: ${numeroParcelas}%0A` +
+            `Valor Aproximado ${formatter.format(valorTotal)}%0A` +
+            `${numeroParcelas > 6 ? 'Com juros da maquininha inclusos!%0A%0A' : 'SEM JUROS%0A%0A'}` +
+            `Por favor, me envie mais informações sobre como proceder. Obrigado!`;
+        window.open(`https://wa.me/5567981368080?text=${mensagem}`, '_blank');
     }
 
     const Buttons = () => {
@@ -273,7 +284,7 @@ export default function Calculator() {
                 <button className='border bg-neutral-100/30 col-span-2 hover:bg-neutral-400/40 transition-all duration-300 py-3 px-6 text-white w-full rounded-full cursor-pointer hover:opacity-90' onClick={() => reset()}>
                     Reiniciar
                 </button>
-                <button className='bg-green-400/80 border col-span-3 border-green-200 hover:bg-green-600/40 transition-all duration-300 py-3 px-6 text-green-900 w-full rounded-full cursor-pointer hover:opacity-90'>
+                <button className='bg-green-400/80 border col-span-3 border-green-200 hover:bg-green-600/40 transition-all duration-300 py-3 px-6 text-green-900 w-full rounded-full cursor-pointer hover:opacity-90' onClick={() => enviarMensagem()}>
                     Quero iniciar agora!
                     <p className='text-[10px] text-green-900'>Leva menos de 2 minutos!</p>
                 </button>
@@ -352,6 +363,7 @@ export default function Calculator() {
                 <div className='mt-3 gap-4 flex flex-col'>
                     <label htmlFor='numeroParcelas' className='mt-6 text-lg font-medium'>Número de parcelas: {numeroParcelas}</label>
                     <input type="range" name="numeroParcelas" value={numeroParcelas} min={1} max={18} onChange={(e) => setNumeroParcelas(Number(e.target.value))} />
+                    <p className='text-sm font-light mt-2 text-blue-200'>Parcelamento em até 6x é SEM JUROS</p>
                 </div>
                 {testDescontoAula && <DivDescontoAula />}
                 {(testDescontoAluguel > 0) && <DivDescontoVeiculo />}
