@@ -280,7 +280,7 @@ export default function Calculator() {
 
     const Buttons = () => {
         return (
-            <div className='grid-cols-1 lg:grid-cols-5 gap-2 mt-5 hidden lg:grid'>
+            <div className='grid-cols-1 lg:grid-cols-5 gap-2 mt-5 grid'>
                 <button className='border bg-neutral-100/30 col-span-2 hover:bg-neutral-400/40 transition-all duration-300 py-3 px-6 text-white w-full rounded-full cursor-pointer hover:opacity-90' onClick={() => reset()}>
                     Reiniciar
                 </button>
@@ -370,7 +370,7 @@ export default function Calculator() {
             </div>
             <div className='flex flex-col ga-1'>
                 <h3 className='text-xl'>Valor total aproximado:</h3>
-                <h1 className='text-5xl lg:text-6xl font-semibold'>{formatter.format(valorTotal)}</h1>
+                <h1 className='text-4xl lg:text-6xl font-semibold'>{formatter.format(valorTotal)}</h1>
                 {numeroParcelas > 1 ? <p className='mt-3 opacity-00 font-light'>ou em <strong className='uppercase font-semibold text-2xl'>{numeroParcelas}x</strong> de <strong className='uppercase font-semibold text-2xl'>{formatter.format(valorTotal / numeroParcelas)}</strong> {valorTotal == valorTotalSemJuros ? 'SEM JUROS' : 'com juros da maquininha'}</p> : <p>A vista    </p>}
                 <h3 className='text-md lg:text-lg mt-4 lg:mt-6 text-blue-200'>Valor por aula aproximado:</h3>
                 <h1 className='text-2xl lg:text-4xl font-semibold text-blue-200'>{formatter.format(valorPorAula)}</h1>
