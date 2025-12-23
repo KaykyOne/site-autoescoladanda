@@ -1,5 +1,5 @@
 import { set } from 'astro:schema';
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, type JSX } from 'react'
 
 type tipos = 'carroMoto' | 'moto' | 'carro'
 const valorOriginalAula = 100
@@ -35,7 +35,8 @@ export default function Calculator() {
     const [valorPorAula, setValorPorAula] = useState<number>(0)
     const [valorAluguel, setValorAluguel] = useState<number>(0)
     const [valorAula, setValorAula] = useState<number>(100)
-    const [numeroParcelas, setNumeroParcelas] = useState<number>(1)
+    const [numeroParcelas, setNumeroParcelas] = useState<number>(6)
+    const [aulasTotaisSoma, setAulasTotaisSoma] = useState<number>(4)
 
     useEffect(() => {
         setNumAulasMoto(2)
@@ -78,51 +79,49 @@ export default function Calculator() {
     }
 
     const RenderInputs = () => {
-        if (tipo === 'moto') {
-            return (
-                <div className='flex flex-col animcao-entrada'>
-                    <label htmlFor='aulasMoto' className='mt-6 text-lg font-medium'>Número de aulas de moto:</label>
-                    <div className='flex gap-2 items-center'>
-                        <button className='input-button' onClick={() => alterarAulas('moto', numAulasMoto - 1)}>-</button>
-                        <h1>{numAulasMoto}</h1>
-                        <button className='input-button' onClick={() => alterarAulas('moto', numAulasMoto + 1)}>+</button>
-                    </div>
-                </div>
-            )
-        } else if (tipo === 'carro') {
-            return (
-                <div className='flex flex-col animcao-entrada'>
-                    <label htmlFor='aulasCarro' className='mt-6 text-lg font-medium'>Número de aulas de carro:</label>
-                    <div className='flex gap-2 items-center'>
-                        <button className='input-button' onClick={() => alterarAulas('carro', numAulasCarro - 1)}>-</button>
-                        <h1>{numAulasCarro}</h1>
-                        <button className='input-button' onClick={() => alterarAulas('carro', numAulasCarro + 1)}>+</button>
-                    </div>
-                </div>
-            )
+        if (!tipo) return null;
+
+        const tipos: tipos[] = [];
+        if (tipo === 'carro') tipos.push('carro');
+        if (tipo === 'moto') tipos.push('moto');
+        if (tipo == 'carroMoto') {
+            tipos.push('carro');
+            tipos.push('moto');
         }
 
         return (
-            <>
-                <div className='flex flex-col animcao-entrada'>
-                    <label htmlFor='aulasMoto' className='mt-6 text-lg font-medium'>Número de aulas de moto:</label>
-                    <div className='flex gap-2 items-center'>
-                        <button className='input-button' onClick={() => alterarAulas('moto', numAulasMoto - 1)}>-</button>
-                        <h1>{numAulasMoto}</h1>
-                        <button className='input-button' onClick={() => alterarAulas('moto', numAulasMoto + 1)}>+</button>
-                    </div>
-                </div>
-                <div className='flex flex-col animcao-entrada'>
-                    <label htmlFor='aulasCarro' className='mt-6 text-lg font-medium'>Número de aulas de carro:</label>
-                    <div className='flex gap-2 items-center'>
-                        <button className='input-button' onClick={() => alterarAulas('carro', numAulasCarro - 1)}>-</button>
-                        <h1>{numAulasCarro}</h1>
-                        <button className='input-button' onClick={() => alterarAulas('carro', numAulasCarro + 1)}>+</button>
-                    </div>
-                </div>
-            </>
-        )
-    }
+            <div className=' flex flex-col gap-3 mt-4'>
+                {
+                    tipos.map((t) => (
+                        <div className='flex flex-col'>
+                            <legend className='mb-2 text-sm text-blue-200'>
+                                {`> Número de aulas de ${t}`}
+                            </legend>
+
+                            <div className='flex gap-2 items-center'>
+                                <button
+                                    className='input-button'
+                                    onClick={() => alterarAulas(t, t == 'carro' ? numAulasCarro - 1 : numAulasMoto - 1)}
+                                >
+                                    -
+                                </button>
+
+                                <h1>{t == 'carro' ? numAulasCarro : numAulasMoto}</h1>
+
+                                <button
+                                    className='input-button'
+                                    onClick={() => alterarAulas(t, t == 'carro' ? numAulasCarro + 1 : numAulasMoto + 1)}
+                                >
+                                    +
+                                </button>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        );
+    };
+
 
     const aplicarDesconto = (valor: number, desconto: number) => {
         return valor - (valor * (desconto / 100))
@@ -160,7 +159,7 @@ export default function Calculator() {
             valorAulaLocal = 100;
             valorAluguel = calcularCustoAluguel();
         }
-
+        setAulasTotaisSoma(aulasTotais)
         const valorT = ((aulasTotais * valorAulaLocal) + valorAluguel)
         setValorAula(valorAulaLocal);
         setValorTotalSemJuros(valorT);
@@ -184,16 +183,78 @@ export default function Calculator() {
 
     const DivDescontoAula = () => {
         return (
-            <div className='bg-amber-600 flex flex-col p-3 rounded-lg mt-5'>
-                <h1>Você recebeu um desconto de <strong>{descontoAula.toFixed(0)}%</strong> nas aulas!</h1>
+            <div className="relative flex mt-6 overflow-hidden rounded-2xl border border-amber-400 bg-amber-200 p-5 shadow-lg min-h-30 justify-start items-center">
+                {/* brilho decorativo */}
+                <div className="pointer-events-none absolute -top-10 -right-10 h-32 w-32 rounded-full bg-white/30 blur-2xl" />
+
+                <div className="relative z-10 flex items-center gap-4">
+                    <span className="material-symbols-outlined text-amber-700 text-5xl">
+                        local_offer
+                    </span>
+
+                    <div className="flex flex-col">
+                        <span className="text-sm uppercase tracking-wide text-amber-800/70">
+                            Desconto aplicado
+                        </span>
+
+                        <span className="text-lg text-amber-900 font-light">
+                            Você recebeu
+                            <strong className="ml-1 font-semibold">
+                                {descontoAula.toFixed(0)}%
+                            </strong>
+                            {' '}nas aulas
+                        </span>
+                    </div>
+                </div>
             </div>
+
         )
     }
 
     const DivDescontoVeiculo = () => {
         return (
-            <div className='bg-green-600 flex flex-col p-3 rounded-lg mt-5'>
-                <h1>Você recebeu um desconto de <strong>{descontoAluguel.toFixed(0)}%</strong> no aluguel dos veículos!</h1>
+            <div className="relative mt-6 flex overflow-hidden rounded-2xl border border-green-500 bg-green-400 p-5 shadow-lg lg min-h-30 justify-start items-center">
+                {/* brilho decorativo */}
+                <div className="pointer-events-none absolute -top-10 -right-10 h-32 w-32 rounded-full bg-white/20 blur-2xl" />
+
+                <div className="relative z-10 flex items-center gap-4">
+                    <span className="material-symbols-outlined text-green-900 text-5xl">
+                        directions_car
+                    </span>
+
+                    <div className="flex flex-col">
+                        <span className="text-sm uppercase tracking-wide text-green-900/70">
+                            Desconto no aluguel
+                        </span>
+
+                        <span className="text-lg text-green-950 font-light">
+                            Você recebeu
+                            <strong className="ml-1 font-semibold">
+                                {descontoAluguel.toFixed(0)}%
+                            </strong>
+                            {' '}no aluguel dos veículos
+                        </span>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    const Detalhes = () => {
+        return (
+            <div className='bg-blue-600/40 p-5 rounded-3xl border-2 border-blue-300 w-full h-full mt-4'>
+                <h2 className='text-lg font-medium mb-2 text-blue-200 uppercase'>Incluido no pacote:</h2>
+                <ul className='flex flex-col list-disc list-inside'>
+                    {tipo.toLocaleLowerCase().includes("carro") && <li>{numAulasCarro} x Aulas de Carro</li>}
+                    {tipo.toLocaleLowerCase().includes("moto") && <li>{numAulasMoto} x Aulas de Moto</li>}
+                    <li>Veículo incluso no exame prático</li>
+                    <li>Agendamento feito por nós</li>
+                    {aulasTotaisSoma >= 6 && <li>Curso teórico de 6 horas (OPCIONAL)</li>}
+                    {aulasTotaisSoma >= 8 && <>
+                        <li>Processo 100% personalizado</li>
+                        <li>Monitoramento de aprendizagem ESPECIAL</li>
+                    </>}
+                </ul>
             </div>
         )
     }
@@ -206,46 +267,83 @@ export default function Calculator() {
         setNumeroParcelas(1)
     }
 
+    const Buttons = () => {
+        return (
+            <div className='grid-cols-1 lg:grid-cols-5 gap-2 mt-5 hidden lg:grid'>
+                <button className='border bg-neutral-100/30 col-span-2 hover:bg-neutral-400/40 transition-all duration-300 py-3 px-6 text-white w-full rounded-full cursor-pointer hover:opacity-90' onClick={() => reset()}>
+                    Reiniciar
+                </button>
+                <button className='bg-green-400/80 border col-span-3 border-green-200 hover:bg-green-600/40 transition-all duration-300 py-3 px-6 text-green-900 w-full rounded-full cursor-pointer hover:opacity-90'>
+                    Quero iniciar agora!
+                    <p className='text-[10px] text-green-900'>Leva menos de 2 minutos!</p>
+                </button>
+            </div>
+        )
+    }
+
+    const cssSelecionado = 'bg-secondary/40 p-5 rounded-3xl justify-center items-center border-2 border-amber-300 flex flex-col gap-1 w-full text-amber-300 cursor-pointer hover:border-amber-400 hover:bg-secondary/60 transition-all duration-300';
+    const cssPadrao = 'bg-blue-600/40 p-5 rounded-3xl justify-center items-center border-2 border-blue-300 flex flex-col gap-1 w-full text-blue-200 cursor-pointer hover:border-blue-400 hover:bg-blue-600/60 transition-all duration-300';
+
+
     return (
-        <div className='w-full bg-linear-65 p-8 from-primary/80 to-primary text-white rounded-3xl shadow-lg grid grid-cols-1 lg:grid-cols-2 gap-4 mb-10 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1'>
-            <div className='flex flex-col'>
+        <div className='w-full bg-linear-65 p-8 from-primary/90 to-primary/70 border-2 border-primary text-white rounded-3xl shadow-lg grid grid-cols-1 lg:grid-cols-2 gap-4 mb-10 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 '>
+            <div className='flex flex-col relative'>
+                <div className='opacity-40 flex gap-2 items-center justify-start'>
+                    <div className='bg-blue-200 rounded-full h-3 w-3'></div>
+                    <div className='bg-blue-200 rounded-full h-3 w-3'></div>
+                    <div className='bg-blue-200 rounded-full h-3 w-3'></div>
+                </div>
+                <h3 className='text-md uppercase opacity-60 font-extralight mt-6'>Descubra qual o pacote</h3>
+                <h1 className='text-5xl font-semibold'><strong className='text-amber-400 uppercase'>Perfeito</strong> para você</h1>
+                <h2 className='text-lg font-light mt-2 text-blue-200'>Configure a melhor forma de tirar a sua CNH!</h2>
 
-                <h3 className='text-md uppercase opacity-70'>Descubra qual o pacote</h3>
-                <h1 className='text-6xl font-semibold'>Perfeito para você</h1>
-                <h2 className='text-2xl font-light mt-2'>Configure a melhor forma de tirar a sua CNH!</h2>
+                <fieldset className='mt-8 flex flex-col lg:flex-row gap-3'>
+                    <legend className='mb-4 text-xl text-blue-200'>{`>> Escolha o plano:`}</legend>
+                    <div className={tipo === 'carroMoto' ? cssSelecionado : cssPadrao} onClick={() => setTipo("carroMoto")}>
+                        <div className='flex gap-2'>
+                            <span className="material-symbols-outlined !text-4xl">
+                                directions_car
+                            </span>
+                            <span className="material-symbols-outlined !text-4xl">
+                                two_wheeler
+                            </span>
+                        </div>
 
-                <fieldset className='mt-8 flex gap-3'>
-                    <legend className='mt-10 text-2xl font-medium'>Escolha o plano:</legend>
-                    <div className='flex gap-1'>
                         <input
                             type='radio'
                             name="drone"
                             value={'carroMoto'}
+                            className='hidden'
                             id="carroMoto"
                             checked={tipo === 'carroMoto'}
-                            onChange={(e) => setTipo(e.target.value as tipos)}
                         />
-                        <label htmlFor='carroMoto' className='text-lg'>Carro e moto</label>
+                        <label htmlFor='carroMoto' className='text-lg font-light'>Carro e moto</label>
                     </div>
-                    <div className='flex gap-1'>
+                    <div className={tipo === 'moto' ? cssSelecionado : cssPadrao} onClick={() => setTipo("moto")}>
+                        <span className="material-symbols-outlined !text-4xl">
+                            two_wheeler
+                        </span>
                         <input
                             type='radio'
                             name="drone"
                             value={'moto'}
                             id="moto"
                             checked={tipo === 'moto'}
-                            onChange={(e) => setTipo(e.target.value as tipos)}
+                            className='hidden'
                         />
                         <label htmlFor='moto' className='text-lg'>Moto</label>
                     </div>
-                    <div className='flex gap-1'>
+                    <div className={tipo === 'carro' ? cssSelecionado : cssPadrao} onClick={() => setTipo("carro")}>
+                        <span className="material-symbols-outlined !text-4xl">
+                            directions_car
+                        </span>
                         <input
                             type='radio'
                             name="drone"
                             value={'carro'}
+                            className='hidden'
                             id="carro"
                             checked={tipo === 'carro'}
-                            onChange={(e) => setTipo(e.target.value as tipos)}
                         />
                         <label htmlFor='carro' className='text-lg'>Carro</label>
                     </div>
@@ -255,31 +353,18 @@ export default function Calculator() {
                     <label htmlFor='numeroParcelas' className='mt-6 text-lg font-medium'>Número de parcelas: {numeroParcelas}</label>
                     <input type="range" name="numeroParcelas" value={numeroParcelas} min={1} max={18} onChange={(e) => setNumeroParcelas(Number(e.target.value))} />
                 </div>
-                <div className='grid-cols-1 lg:grid-cols-2 gap-2 mt-5 hidden lg:grid'>
-                    <button className='bg-secondary py-3 px-6 text-white w-full rounded-lg cursor-pointer hover:opacity-90 transition-opacity' onClick={() => reset()}>
-                        Reiniciar
-                    </button>
-                    <button className='bg-green-700 py-3 px-6 text-white w-full rounded-lg cursor-pointer hover:opacity-90 transition-opacity'>
-                        Quero iniciar agora!
-                    </button>
-                </div>
+                {testDescontoAula && <DivDescontoAula />}
+                {(testDescontoAluguel > 0) && <DivDescontoVeiculo />}
             </div>
             <div className='flex flex-col ga-1'>
                 <h3 className='text-xl'>Valor total aproximado:</h3>
-                <h1 className='text-6xl font-semibold'>{formatter.format(valorTotal)}</h1>
-                {numeroParcelas > 1 && <p className='mt-3 opacity-00 font-light'>ou em <strong className='uppercase font-semibold text-2xl'>{numeroParcelas}x</strong> de <strong className='uppercase font-semibold text-2xl'>{formatter.format(valorTotal / numeroParcelas)}</strong> {valorTotal == valorTotalSemJuros ? 'SEM JUROS' : 'com juros da maquininha'}</p>}
-                <h3 className='text-xl mt-10'>Valor por aula aproximado:</h3>
-                <h1 className='text-4xl font-semibold'>{formatter.format(valorPorAula)}</h1>
-                {testDescontoAula && <DivDescontoAula />}
-                {(testDescontoAluguel > 0) && <DivDescontoVeiculo />}
-                <div className='grid grid-cols-1 gap-2 mt-5  lg:hidden'>
-                    <button className='bg-secondary py-3 px-6 text-white w-full rounded-lg cursor-pointer hover:opacity-90 transition-opacity' onClick={() => reset()}>
-                        Reiniciar
-                    </button>
-                    <button className='bg-green-700 py-3 px-6 text-white w-full rounded-lg cursor-pointer hover:opacity-90 transition-opacity'>
-                        Quero iniciar agora!
-                    </button>
-                </div>
+                <h1 className='text-5xl lg:text-6xl font-semibold'>{formatter.format(valorTotal)}</h1>
+                {numeroParcelas > 1 ? <p className='mt-3 opacity-00 font-light'>ou em <strong className='uppercase font-semibold text-2xl'>{numeroParcelas}x</strong> de <strong className='uppercase font-semibold text-2xl'>{formatter.format(valorTotal / numeroParcelas)}</strong> {valorTotal == valorTotalSemJuros ? 'SEM JUROS' : 'com juros da maquininha'}</p> : <p>A vista    </p>}
+                <h3 className='text-md lg:text-lg mt-4 lg:mt-6 text-blue-200'>Valor por aula aproximado:</h3>
+                <h1 className='text-2xl lg:text-4xl font-semibold text-blue-200'>{formatter.format(valorPorAula)}</h1>
+                <Detalhes />
+                <p className='mt-4'>* Os valores apresentados não incluem taxas e exames adicionais.</p>
+                <Buttons />
             </div>
         </div>
     )
