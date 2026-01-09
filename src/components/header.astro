@@ -47,7 +47,7 @@ const links = [
             <!-- Menu Mobile Button -->
             <button 
                 id="menu-toggle"
-                class="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg hover:bg-neutral-100 transition-all"
+                class="xl:hidden cursor-pointer flex items-center justify-center w-10 h-10 rounded-lg hover:bg-neutral-100 transition-all"
             >
                 <span class="material-symbols-outlined text-2xl text-neutral-700">menu</span>
             </button>
@@ -55,7 +55,7 @@ const links = [
     </div>
 
     <!-- Menu Mobile -->
-    <nav id="menu-mobile" class="lg:hidden hidden flex-col bg-white border-t border-neutral-100 pb-4">
+    <nav id="menu-mobile" class="xl:hidden hidden flex-col bg-white border-t border-neutral-100 pb-4">
         {links.map((link) => (
             <a 
                 href={link.href} 
