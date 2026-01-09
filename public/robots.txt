@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://autoescoladanda.com.br/sitemap-index.xml
+Sitemap: https://autoescoladanda.com.br/sitemap.xml
 
 # Autoescola Danda - Aparecida do Taboado, MS
 # CNH Categoria A e B | Reciclagem | Renovação

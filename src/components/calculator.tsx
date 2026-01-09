@@ -93,7 +93,7 @@ export default function Calculator() {
             <div className=' flex flex-col gap-3 mt-4'>
                 {
                     tipos.map((t) => (
-                        <div className='flex flex-col'>
+                        <div className='flex flex-col' key={t}>
                             <legend className='mb-2 text-sm text-blue-200'>
                                 {`> Número de aulas de ${t}`}
                             </legend>
@@ -297,87 +297,103 @@ export default function Calculator() {
 
 
     return (
-        <div className='w-full bg-linear-65 p-8 from-primary/90 to-primary/70 border-2 border-primary text-white rounded-3xl shadow-lg grid grid-cols-1 lg:grid-cols-2 gap-4 mb-10 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 '>
-            <div className='flex flex-col relative'>
-                <div className='opacity-40 flex gap-2 items-center justify-start'>
-                    <div className='bg-blue-200 rounded-full h-3 w-3'></div>
-                    <div className='bg-blue-200 rounded-full h-3 w-3'></div>
-                    <div className='bg-blue-200 rounded-full h-3 w-3'></div>
-                </div>
-                <h3 className='text-md uppercase opacity-60 font-extralight mt-6'>Descubra qual o pacote</h3>
-                <h1 className='text-5xl font-semibold'><strong className='text-amber-400 uppercase'>Perfeito</strong> para você</h1>
-                <h2 className='text-lg font-light mt-2 text-blue-200'>Configure a melhor forma de tirar a sua CNH!</h2>
 
-                <fieldset className='mt-8 flex flex-col lg:flex-row gap-3'>
-                    <legend className='mb-4 text-xl text-blue-200'>{`>> Escolha o plano:`}</legend>
-                    <div className={tipo === 'carroMoto' ? cssSelecionado : cssPadrao} onClick={() => setTipo("carroMoto")}>
-                        <div className='flex gap-2'>
-                            <span className="material-symbols-outlined !text-4xl">
-                                directions_car
-                            </span>
+        <>
+            <div className='w-full bg-linear-65 p-8 from-primary/90 to-primary/70 border-2 border-primary text-white rounded-3xl shadow-lg grid grid-cols-1 lg:grid-cols-2 gap-4 mb-10 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 '>
+                <div className='flex flex-col relative'>
+                    <div className='opacity-40 flex gap-2 items-center justify-start'>
+                        <div className='bg-blue-200 rounded-full h-3 w-3'></div>
+                        <div className='bg-blue-200 rounded-full h-3 w-3'></div>
+                        <div className='bg-blue-200 rounded-full h-3 w-3'></div>
+                    </div>
+                    <h3 className='text-md uppercase opacity-60 font-extralight mt-6'>Descubra qual o pacote</h3>
+                    <h1 className='text-5xl font-semibold'><strong className='text-amber-400 uppercase'>Perfeito</strong> para você</h1>
+                    <h2 className='text-lg font-light mt-2 text-blue-200'>Configure a melhor forma de tirar a sua CNH!</h2>
+
+                    <fieldset className='mt-8 flex flex-col lg:flex-row gap-3'>
+                        <legend className='mb-4 text-xl text-blue-200'>{`>> Escolha o plano:`}</legend>
+                        <div key={'carroMoto'} className={tipo === 'carroMoto' ? cssSelecionado : cssPadrao} onClick={() => setTipo("carroMoto")}>
+                            <div className='flex gap-2'>
+                                <span className="material-symbols-outlined !text-4xl">
+                                    directions_car
+                                </span>
+                                <span className="material-symbols-outlined !text-4xl">
+                                    two_wheeler
+                                </span>
+                            </div>
+
+                            <input
+                                type='radio'
+                                name="drone"
+                                value={'carroMoto'}
+                                
+                                className='hidden'
+                                readOnly
+                                id="carroMoto"
+                                checked={tipo === 'carroMoto'}
+                            />
+                            <label htmlFor='carroMoto' className='text-lg font-light'>Carro e moto</label>
+                        </div>
+                        <div key={'moto'} className={tipo === 'moto' ? cssSelecionado : cssPadrao} onClick={() => setTipo("moto")}>
                             <span className="material-symbols-outlined !text-4xl">
                                 two_wheeler
                             </span>
+                            <input
+                                readOnly
+                                type='radio'
+                                name="drone"
+                                value={'moto'}
+                                id="moto"
+                                checked={tipo === 'moto'}
+                                className='hidden'
+                            />
+                            <label htmlFor='moto' className='text-lg'>Moto</label>
                         </div>
-
-                        <input
-                            type='radio'
-                            name="drone"
-                            value={'carroMoto'}
-                            className='hidden'
-                            id="carroMoto"
-                            checked={tipo === 'carroMoto'}
-                        />
-                        <label htmlFor='carroMoto' className='text-lg font-light'>Carro e moto</label>
+                        <div key={'carro'} className={tipo === 'carro' ? cssSelecionado : cssPadrao} onClick={() => setTipo("carro")}>
+                            <span className="material-symbols-outlined !text-4xl">
+                                directions_car
+                            </span>
+                            <input
+                                readOnly
+                                type='radio'
+                                name="drone"
+                                value={'carro'}
+                                className='hidden'
+                                id="carro"
+                                checked={tipo === 'carro'}
+                            />
+                            <label htmlFor='carro' className='text-lg'>Carro</label>
+                        </div>
+                    </fieldset>
+                    <RenderInputs />
+                    <div className='mt-3 gap-4 flex flex-col'>
+                        <label htmlFor='numeroParcelas' className='mt-6 text-lg font-medium'>Número de parcelas: {numeroParcelas}</label>
+                        <input type="range" name="numeroParcelas" value={numeroParcelas} min={1} max={18} onChange={(e) => setNumeroParcelas(Number(e.target.value))} />
+                        <p className='text-sm font-light mt-2 text-blue-200'>Parcelamento em até 6x é SEM JUROS</p>
                     </div>
-                    <div className={tipo === 'moto' ? cssSelecionado : cssPadrao} onClick={() => setTipo("moto")}>
-                        <span className="material-symbols-outlined !text-4xl">
-                            two_wheeler
-                        </span>
-                        <input
-                            type='radio'
-                            name="drone"
-                            value={'moto'}
-                            id="moto"
-                            checked={tipo === 'moto'}
-                            className='hidden'
-                        />
-                        <label htmlFor='moto' className='text-lg'>Moto</label>
-                    </div>
-                    <div className={tipo === 'carro' ? cssSelecionado : cssPadrao} onClick={() => setTipo("carro")}>
-                        <span className="material-symbols-outlined !text-4xl">
-                            directions_car
-                        </span>
-                        <input
-                            type='radio'
-                            name="drone"
-                            value={'carro'}
-                            className='hidden'
-                            id="carro"
-                            checked={tipo === 'carro'}
-                        />
-                        <label htmlFor='carro' className='text-lg'>Carro</label>
-                    </div>
-                </fieldset>
-                <RenderInputs />
-                <div className='mt-3 gap-4 flex flex-col'>
-                    <label htmlFor='numeroParcelas' className='mt-6 text-lg font-medium'>Número de parcelas: {numeroParcelas}</label>
-                    <input type="range" name="numeroParcelas" value={numeroParcelas} min={1} max={18} onChange={(e) => setNumeroParcelas(Number(e.target.value))} />
-                    <p className='text-sm font-light mt-2 text-blue-200'>Parcelamento em até 6x é SEM JUROS</p>
+                    {testDescontoAula && <DivDescontoAula />}
+                    {(testDescontoAluguel > 0) && <DivDescontoVeiculo />}
                 </div>
-                {testDescontoAula && <DivDescontoAula />}
-                {(testDescontoAluguel > 0) && <DivDescontoVeiculo />}
+                <div className='flex flex-col ga-1'>
+                    <h3 className='text-xl'>Valor total aproximado:</h3>
+                    <h1 className='text-4xl lg:text-6xl font-semibold'>{formatter.format(valorTotal)}</h1>
+                    {numeroParcelas > 1 ? <p className='mt-3 opacity-00 font-light'>ou em <strong className='uppercase font-semibold text-2xl'>{numeroParcelas}x</strong> de <strong className='uppercase font-semibold text-2xl'>{formatter.format(valorTotal / numeroParcelas)}</strong> {valorTotal == valorTotalSemJuros ? 'SEM JUROS' : 'com juros da maquininha'}</p> : <p>A vista    </p>}
+                    <h3 className='text-md lg:text-lg mt-4 lg:mt-6 text-blue-200'>Valor por aula aproximado:</h3>
+                    <h1 className='text-2xl lg:text-4xl font-semibold text-blue-200'>{formatter.format(valorPorAula)}</h1>
+                    <Detalhes />
+                    <p className='mt-4'>* Os valores apresentados não incluem taxas e exames adicionais.</p>
+                    <Buttons />
+                </div>
             </div>
-            <div className='flex flex-col ga-1'>
-                <h3 className='text-xl'>Valor total aproximado:</h3>
-                <h1 className='text-4xl lg:text-6xl font-semibold'>{formatter.format(valorTotal)}</h1>
-                {numeroParcelas > 1 ? <p className='mt-3 opacity-00 font-light'>ou em <strong className='uppercase font-semibold text-2xl'>{numeroParcelas}x</strong> de <strong className='uppercase font-semibold text-2xl'>{formatter.format(valorTotal / numeroParcelas)}</strong> {valorTotal == valorTotalSemJuros ? 'SEM JUROS' : 'com juros da maquininha'}</p> : <p>A vista    </p>}
-                <h3 className='text-md lg:text-lg mt-4 lg:mt-6 text-blue-200'>Valor por aula aproximado:</h3>
-                <h1 className='text-2xl lg:text-4xl font-semibold text-blue-200'>{formatter.format(valorPorAula)}</h1>
-                <Detalhes />
-                <p className='mt-4'>* Os valores apresentados não incluem taxas e exames adicionais.</p>
-                <Buttons />
+            {/* ------------------------------------------------ */}
+            <div className="flex flex-col w-full ">
+                <div className="flex flex-col h-24 w-full bg-amber-200 border-2 border-amber-400 text-amber-600 rounded-3xl p-8 justify-center items-center">
+                    <h1 className='text-xl font-semibold'>Aviso</h1>
+                    <p className='mt-2 text-center text-[10px]'>- Os valores apresentados são estimativas baseadas nas informações fornecidas. O valor final pode variar dependendo de fatores adicionais, como taxas administrativas, impostos e custos específicos da região. Entre em contato conosco para obter um orçamento preciso e personalizado.-</p>
+                    <p className='mt-2 text-center text-[10px]'>- Valores adulterados não serão aceitos, e o valor final sempre será o da autoescola.-</p>
+                </div>
             </div>
-        </div>
+        </>
+
     )
 }
