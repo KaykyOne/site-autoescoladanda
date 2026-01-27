@@ -18,12 +18,12 @@ const informacoes = [
     {
         icone: "schedule",
         titulo: "Horário de Funcionamento",
-        texto: "Seg - Sex: 8h às 18h | Sáb: 8h às 12h",
+        texto: "Seg - Sex: 8h às 18h",
     },
 ];
 ---
 
-<section id="contato" class="w-full py-20">
+<section id="contato" class="w-full flex flex-col pt-20">
     <div class="corpo mx-auto">
         <div class="text-center mb-16">
             <p class="text-primary font-semibold uppercase tracking-wider mb-2">
@@ -132,6 +132,27 @@ const informacoes = [
                 </form>
             </div>
         </div>
+    </div>
+    <div
+        class="w-full bg-neutral-900 mt-20 p-10 grid grid-cols-1 gap-4 text-white text-center"
+    >
+        <div
+            class="flex flex-col justify-center items-center"
+        >
+            <h1 class="text-3xl font-semibold">Nossa localização</h1>
+            <p>Venha encontrar a gente! estamos ansiosos pela sua presença!</p>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3747.2602397834135!2d-51.097247499999995!3d-20.081405399999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9499919bd3ee881b%3A0x2b5ef7a90286f861!2sAutoescola%20Danda%20-%20Aparecida%20do%20Taboado%20-%20MS!5e0!3m2!1spt-BR!2sbr!4v1769521598812!5m2!1spt-BR!2sbr"
+                class="rounded-2xl mt-10 w-full h-full min-h-[300px] md:min-h-[400px]"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <a class="bg-red-700 p-4 w-full flex gap-4 items-center justify-center hover:bg-red-800 transition-all rounded-lg mt-6 cursor-pointer" href="https://maps.app.goo.gl/iB6UgjMzsyryFpEH7" target="_blank">
+            Abrir no Google Maps
+            <span class="material-symbols-outlined"> map_pin_heart </span>
+        </a>
     </div>
 </section>
 

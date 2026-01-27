@@ -15,7 +15,7 @@ import { Image } from "astro:assets";
     <div
         class="grid grid-cols-1 xl:grid-cols-2 lg:max-w-[70vw] items-center px-5 md:px-20 pt-30 py-10 bg-transparent relative mx-auto z-10"
     >
-        <div class="flex flex-col items-center lg:items-start justify-center">
+        <div class="flex flex-col items-center lg:items-start justify-center p-6">
             <div class="bg-primary/10 rounded-full py-3 px-2 mb-2 w-fit">
                 <p
                     class="text-sm md:text-md font-medium text-primary px-4 flex items-center justify-center gap-2 py-0"
@@ -74,25 +74,33 @@ import { Image } from "astro:assets";
             </div>
         </div>
 
-        <div class="hidden xl:flex items-center justify-center">
-            <div class="relative">
+        <div class="hidden xl:flex items-start justify-start pl-20">
+            <div class="relative h-full w-full bg-black flex flex-1">
                 <div
-                    class="absolute -inset-4 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-3xl"
-                >
-                </div>
-                <div
-                    class="relative bg-gradient-to-br from-primary to-primary/80 rounded-3xl p-10 text-white"
+                    class="absolute -top-40 bg-linear-to-br from-primary to-primary/80 rounded-3xl p-10 text-white"
                 >
                     <div class="flex flex-col items-center gap-4">
                         <span class="material-symbols-outlined text-8xl"
                             >directions_car</span
                         >
-                        <p class="text-2xl font-bold">+500</p>
+                        <p class="text-2xl font-bold">+1000</p>
                         <p class="text-lg opacity-80">Alunos aprovados</p>
+                    </div>
+                </div>
+
+                <div
+                    class="absolute ml-30 bg-linear-to-br from-amber-500 to-amber-600 rounded-3xl p-10 text-white"
+                >
+                    <div class="flex flex-col items-center gap-4">
+                        <span class="material-symbols-outlined text-8xl"
+                            >payment_arrow_down</span
+                        >
+                        <p class="text-2xl font-bold">Preços</p>
+                        <p class="text-lg opacity-80 text-center">Que cabem no seu bolso</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    <div class="w-full h-1 bg-primary"></div>
 </section>
