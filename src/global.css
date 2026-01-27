@@ -13,7 +13,7 @@ body {
   @apply text-neutral-800;
 }
 
-main{
+main {
   overflow-x: hidden;
 }
 
@@ -42,6 +42,7 @@ input[type="radio"] {
     transform: translateY(20px);
     opacity: 0;
   }
+
   100% {
     transform: translateY(0);
     opacity: 1;
@@ -58,6 +59,7 @@ input[type="radio"] {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -84,4 +86,53 @@ input[type="radio"] {
 
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-primary;
+}
+
+
+.aparecer {
+  animation: aparecerAnim 0.5s ease-out forwards;
+}
+
+.desaparecer {
+  animation: desaparecerAnim 0.5s ease-out forwards;
+}
+
+@keyframes aparecerAnim {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes desaparecerAnim {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.loading{
+  animation: ladingAnim 1s infinite;
+}
+
+@keyframes ladingAnim {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 40%;
+  }
+  100% {
+    width: 80%;
+  }
 }
