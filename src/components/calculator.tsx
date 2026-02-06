@@ -35,7 +35,7 @@ export default function Calculator() {
     const [valorPorAula, setValorPorAula] = useState<number>(0)
     const [valorAluguel, setValorAluguel] = useState<number>(0)
     const [valorAula, setValorAula] = useState<number>(100)
-    const [numeroParcelas, setNumeroParcelas] = useState<number>(6)
+    const [numeroParcelas, setNumeroParcelas] = useState<number>(3)
     const [aulasTotaisSoma, setAulasTotaisSoma] = useState<number>(4)
 
     useEffect(() => {
@@ -48,7 +48,7 @@ export default function Calculator() {
     }, [numAulasMoto, numAulasCarro, tipo])
 
     useEffect(() => {
-        if (numeroParcelas > 6) {
+        if (numeroParcelas > 3) {
             const resultado = calcularValorComJuros(valorTotalSemJuros, numeroParcelas)
             setValorTotal(resultado)
         } else {
@@ -249,7 +249,7 @@ export default function Calculator() {
                     {tipo.toLocaleLowerCase().includes("moto") && <li>{numAulasMoto} x Aulas de Moto</li>}
                     <li>Veículo incluso no exame prático</li>
                     <li>Agendamento feito por nós</li>
-                    {aulasTotaisSoma >= 6 && <li>Curso teórico de 6 horas (OPCIONAL)</li>}
+                    {aulasTotaisSoma >= 6 && <li>Base Teórica para Aprendizado Eficiente</li>}
                     {aulasTotaisSoma >= 8 && <>
                         <li>Processo 100% personalizado</li>
                         <li>Monitoramento de aprendizagem ESPECIAL</li>
@@ -264,7 +264,7 @@ export default function Calculator() {
         setNumAulasCarro(2)
         setValorAula(100)
         setTipo('carroMoto')
-        setNumeroParcelas(6)
+        setNumeroParcelas(3)
     }
 
     const enviarMensagem = () => {
@@ -273,7 +273,7 @@ export default function Calculator() {
             `Número de aulas de ${tipo === 'carroMoto' ? `carro: ${numAulasCarro}%0ANúmero de aulas de moto: ${numAulasMoto}%0A` : (tipo === 'carro' ? `carro: ${numAulasCarro}%0A` : `moto: ${numAulasMoto}%0A`)}` +
             `Número de parcelas: ${numeroParcelas}%0A` +
             `Valor Aproximado ${formatter.format(valorTotal)}%0A` +
-            `${numeroParcelas > 6 ? 'Com juros da maquininha inclusos!%0A%0A' : 'SEM JUROS%0A%0A'}` +
+            `${numeroParcelas > 3 ? 'Com juros da maquininha inclusos!%0A%0A' : 'SEM JUROS%0A%0A'}` +
             `Por favor, me envie mais informações sobre como proceder. Obrigado!`;
         window.open(`https://wa.me/5567981368080?text=${mensagem}`, '_blank');
     }
@@ -369,7 +369,7 @@ export default function Calculator() {
                     <div className='mt-3 gap-4 flex flex-col'>
                         <label htmlFor='numeroParcelas' className='mt-6 text-lg font-medium'>Número de parcelas: {numeroParcelas}</label>
                         <input type="range" name="numeroParcelas" value={numeroParcelas} min={1} max={18} onChange={(e) => setNumeroParcelas(Number(e.target.value))} />
-                        <p className='text-sm font-light mt-2 text-blue-200'>Parcelamento em até 6x é SEM JUROS</p>
+                        <p className='text-sm font-light mt-2 text-blue-200'>Parcelamento em até 3x é SEM JUROS</p>
                     </div>
                     {testDescontoAula && <DivDescontoAula />}
                     {(testDescontoAluguel > 0) && <DivDescontoVeiculo />}
