@@ -4,14 +4,50 @@ const pages = [
   {
     url: "https://autoescoladanda.com.br/",
     lastmod: new Date().toISOString().split("T")[0],
-    changefreq: "monthly",
+    changefreq: "weekly",
     priority: "1.0",
+  },
+  {
+    url: "https://autoescoladanda.com.br/cursos",
+    lastmod: new Date().toISOString().split("T")[0],
+    changefreq: "weekly",
+    priority: "0.95",
+  },
+  {
+    url: "https://autoescoladanda.com.br/mopp",
+    lastmod: new Date().toISOString().split("T")[0],
+    changefreq: "monthly",
+    priority: "0.9",
+  },
+  {
+    url: "https://autoescoladanda.com.br/transporte-coletivo",
+    lastmod: new Date().toISOString().split("T")[0],
+    changefreq: "monthly",
+    priority: "0.9",
+  },
+  {
+    url: "https://autoescoladanda.com.br/transporte-emergencial",
+    lastmod: new Date().toISOString().split("T")[0],
+    changefreq: "monthly",
+    priority: "0.9",
+  },
+  {
+    url: "https://autoescoladanda.com.br/transporte-escolar",
+    lastmod: new Date().toISOString().split("T")[0],
+    changefreq: "monthly",
+    priority: "0.9",
+  },
+  {
+    url: "https://autoescoladanda.com.br/cargas-indivisiveis",
+    lastmod: new Date().toISOString().split("T")[0],
+    changefreq: "monthly",
+    priority: "0.9",
   },
   {
     url: "https://autoescoladanda.com.br/planos",
     lastmod: new Date().toISOString().split("T")[0],
     changefreq: "weekly",
-    priority: "0.9",
+    priority: "0.85",
   },
 ];
 
