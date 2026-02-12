@@ -33,37 +33,78 @@ input[type="radio"] {
   @apply p-4 rounded-lg bg-indigo-400 h-10 w-10 flex items-center justify-center text-xl font-bold transition-all duration-200 hover:opacity-70 hover:text-white cursor-pointer;
 }
 
+/* Animação de entrada simplificada */
 .animcao-entrada {
-  animation: slideIn 0.4s ease-out;
+  animation: slideIn 0.3s ease-out;
 }
 
 @keyframes slideIn {
   0% {
-    transform: translateY(20px);
     opacity: 0;
   }
-
   100% {
-    transform: translateY(0);
     opacity: 1;
   }
 }
 
-/* Animação de fade in ao scroll */
-.fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
+/* Animação de scroll otimizada - apenas fade simples */
+.scroll-animate {
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+  will-change: opacity;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
+.scroll-animate.visible {
+  opacity: 1;
+}
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.scroll-animate-left {
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+  will-change: opacity;
+}
+
+.scroll-animate-left.visible {
+  opacity: 1;
+}
+
+.scroll-animate-right {
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+  will-change: opacity;
+}
+
+.scroll-animate-right.visible {
+  opacity: 1;
+}
+
+.scroll-animate-scale {
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+  will-change: opacity;
+}
+
+.scroll-animate-scale.visible {
+  opacity: 1;
+}
+
+/* Animações do menu mobile - simplificadas */
+.menu-mobile-enter {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease-out, opacity 0.25s ease-out;
+}
+
+.menu-mobile-enter-active {
+  max-height: 500px;
+  opacity: 1;
+}
+
+.menu-mobile-exit-active {
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.25s ease-in, opacity 0.25s ease-in;
 }
 
 /* Estilo para seleção de texto */
@@ -90,34 +131,28 @@ input[type="radio"] {
 
 
 .aparecer {
-  animation: aparecerAnim 0.5s ease-out forwards;
+  animation: aparecerAnim 0.3s ease-out forwards;
 }
 
 .desaparecer {
-  animation: desaparecerAnim 0.5s ease-out forwards;
+  animation: desaparecerAnim 0.3s ease-out forwards;
 }
 
 @keyframes aparecerAnim {
   0% {
     opacity: 0;
-    transform: scale(0.95);
   }
-
   100% {
     opacity: 1;
-    transform: scale(1);
   }
 }
 
 @keyframes desaparecerAnim {
   0% {
     opacity: 1;
-    transform: scale(1);
   }
-
   100% {
     opacity: 0;
-    transform: scale(0.95);
   }
 }
 

@@ -4,14 +4,16 @@ const links = [
     { titulo: "Serviços", href: "#servicos" },
     { titulo: "Sobre", href: "#sobre" },
     { titulo: "Depoimentos", href: "#depoimentos" },
+    { titulo: "Cursos", href: "/cursos" },
     { titulo: "Contato", href: "#contato" },
 ];
 
 const servicos = [
-    "Categoria A (Moto)",
-    "Categoria B (Carro)",
-    "Categoria A+B",
-    "Reciclagem",
+    { nome: "Categoria A (Moto)", icone: "two_wheeler" },
+    { nome: "Categoria B (Carro)", icone: "directions_car" },
+    { nome: "Categoria A+B", icone: "local_shipping" },
+    { nome: "Reciclagem", icone: "autorenew" },
+    { nome: "Cursos Especializantes", icone: "school", link: "/cursos" },
 ];
 ---
 
@@ -27,6 +29,7 @@ const servicos = [
                         src="/favicon.png"
                         alt="Logo Danda"
                         class="w-10 h-10"
+                        loading="lazy"
                     />
                     <span class="text-2xl font-bold"
                         >Autoescola <span class="text-primary">Danda</span
@@ -48,6 +51,7 @@ const servicos = [
                             alt="Instagram"
                             height="20"
                             width="20"
+                            loading="lazy"
                         />
                     </a>
                     <a
@@ -60,6 +64,7 @@ const servicos = [
                             alt="WhatsApp"
                             height="20"
                             width="20"
+                            loading="lazy"
                         />
                     </a>
                 </div>
@@ -74,8 +79,9 @@ const servicos = [
                             <li>
                                 <a
                                     href={link.href}
-                                    class="text-neutral-400 hover:text-primary transition-all"
+                                    class="text-neutral-400 hover:text-primary transition-all flex items-center gap-2"
                                 >
+                                    <span class="material-symbols-outlined text-sm">chevron_right</span>
                                     {link.titulo}
                                 </a>
                             </li>
@@ -90,7 +96,23 @@ const servicos = [
                 <ul class="flex flex-col gap-3">
                     {
                         servicos.map((servico) => (
-                            <li class="text-neutral-400">{servico}</li>
+                            <li class="flex items-center gap-2">
+                                {servico.link ? (
+                                    <a href={servico.link} class="flex items-center gap-2 hover:text-primary transition-colors">
+                                        <span class="material-symbols-outlined text-secondary text-lg">
+                                            {servico.icone}
+                                        </span>
+                                        <span class="text-neutral-400 hover:text-primary transition-colors">{servico.nome}</span>
+                                    </a>
+                                ) : (
+                                    <>
+                                        <span class="material-symbols-outlined text-secondary text-lg">
+                                            {servico.icone}
+                                        </span>
+                                        <span class="text-neutral-400">{servico.nome}</span>
+                                    </>
+                                )}
+                            </li>
                         ))
                     }
                 </ul>

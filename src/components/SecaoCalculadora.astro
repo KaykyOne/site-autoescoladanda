@@ -2,18 +2,18 @@
 import Calculator from "./calculator";
 ---
 
-<section id="calculadora" class="w-full py-20 bg-neutral-50">
+<section id="calculadora" class="w-full py-12 sm:py-16 md:py-20 bg-neutral-50">
     <div class="corpo mx-auto">
-        <div class="text-center mb-12">
-            <p class="text-primary font-semibold uppercase tracking-wider mb-2">Simulador de Preços</p>
-            <h2 class="text-4xl md:text-5xl font-bold text-neutral-800">
+        <div class="text-center mb-8 sm:mb-10 md:mb-12 px-4">
+            <p class="text-primary font-semibold uppercase tracking-wider mb-2 text-xs sm:text-sm">Simulador de Preços</p>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-800">
                 Monte seu plano ideal
             </h2>
-            <p class="text-neutral-500 mt-4 max-w-2xl mx-auto">
+            <p class="text-neutral-500 mt-3 sm:mt-4 max-w-2xl mx-auto text-sm sm:text-base">
                 Use nossa calculadora interativa para descobrir o melhor pacote para você.
             </p>
         </div>
-        
+
         <Calculator client:load />
     </div>
 </section>

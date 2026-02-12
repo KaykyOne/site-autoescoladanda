@@ -153,12 +153,14 @@ import Load from "./components/load";
             <a
                 href="https://wa.me/5567981368080"
                 target="_blank"
-                class="bg-green-500 p-3 cursor-pointer rounded-full hover:shadow-2xl transition-all duration-300 fixed right-5 bottom-5 z-[100] animate-bounce"
+                rel="noopener noreferrer"
+                aria-label="Falar conosco pelo WhatsApp"
+                class="bg-green-500 p-2.5 sm:p-3 cursor-pointer rounded-full hover:shadow-2xl transition-shadow duration-200 fixed right-3 sm:right-5 bottom-3 sm:bottom-5 z-[100] w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center"
             >
                 <img
                     src="/icone-whatsapp.png"
-                    alt="WhatsApp"
-                    height="50"
+                    alt="Ícone do WhatsApp"
+                    height="40"
                     width="50"
                 />
             </a>
@@ -168,5 +170,49 @@ import Load from "./components/load";
         window.addEventListener("load", () => {
             console.log("Tudo pronto, até o que você nem precisava");
         });
+
+        // Intersection Observer otimizado para dispositivos mobile
+        // Verifica se o dispositivo tem recursos limitados
+        const isLowEndDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4;
+
+        // Configurações mais leves para dispositivos menos potentes
+        const observerOptions = {
+            threshold: isLowEndDevice ? 0.05 : 0.1,
+            rootMargin: isLowEndDevice ? "0px" : "0px 0px -50px 0px"
+        };
+
+        // Usar requestIdleCallback para melhor performance
+        const scheduleAnimation = (callback: any) => {
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(callback, { timeout: 100 });
+            } else {
+                setTimeout(callback, 0);
+            }
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    scheduleAnimation(() => {
+                        entry.target.classList.add("visible");
+                    });
+                    // Parar de observar para economizar recursos
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observar apenas se as animações estiverem habilitadas
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            const animatedElements = document.querySelectorAll(
+                ".scroll-animate, .scroll-animate-left, .scroll-animate-right, .scroll-animate-scale"
+            );
+            animatedElements.forEach((el) => observer.observe(el));
+        } else {
+            // Se o usuário prefere menos movimento, mostrar tudo imediatamente
+            document.querySelectorAll(
+                ".scroll-animate, .scroll-animate-left, .scroll-animate-right, .scroll-animate-scale"
+            ).forEach((el) => el.classList.add("visible"));
+        }
     </script>
 </html>

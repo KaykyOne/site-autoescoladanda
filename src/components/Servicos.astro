@@ -39,27 +39,27 @@ const servicos = [
 ];
 ---
 
-<section id="servicos" class="w-full py-20 bg-neutral-50">
+<section id="servicos" class="w-full py-12 sm:py-16 md:py-20 bg-neutral-50">
     </div>
     <div class="corpo mx-auto">
-        <div class="text-center mb-16">
-            <p class="text-primary font-semibold uppercase tracking-wider mb-2">Nossos Serviços</p>
-            <h2 class="text-4xl md:text-5xl font-bold text-neutral-800">
+        <div class="text-center mb-10 sm:mb-12 md:mb-16">
+            <p class="text-primary font-semibold uppercase tracking-wider mb-2 text-xs sm:text-sm">Nossos Serviços</p>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-800 px-4">
                 Serviços de Autoescola em Aparecida do Taboado
             </h2>
-            <p class="text-neutral-500 mt-4 max-w-2xl mx-auto">
+            <p class="text-neutral-500 mt-3 sm:mt-4 max-w-2xl mx-auto text-sm sm:text-base px-4">
                 Conheça todos os serviços disponíveis na Autoescola Danda para você conquistar sua habilitação em Aparecida do Taboado - MS.
             </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {servicos.map((servico) => (
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-neutral-100">
-                    <div class={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 ${servico.cor === 'primary' ? 'bg-primary/10 text-primary' : 'bg-secondary/10 text-secondary'}`}>
-                        <span class="material-symbols-outlined text-3xl">{servico.icone}</span>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {servicos.map((servico, index) => (
+                <div class="scroll-animate bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-shadow duration-200 border border-neutral-100" style={`transition-delay: ${index * 0.1}s`}>
+                    <div class={`w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 ${servico.cor === 'primary' ? 'bg-primary/10 text-primary' : 'bg-secondary/10 text-secondary'}`}>
+                        <span class="material-symbols-outlined text-2xl sm:text-3xl">{servico.icone}</span>
                     </div>
-                    <h3 class="text-xl font-bold text-neutral-800 mb-3">{servico.titulo}</h3>
-                    <p class="text-neutral-500 leading-relaxed">{servico.descricao}</p>
+                    <h3 class="text-lg sm:text-xl font-bold text-neutral-800 mb-2 sm:mb-3">{servico.titulo}</h3>
+                    <p class="text-neutral-500 leading-relaxed text-sm sm:text-base">{servico.descricao}</p>
                 </div>
             ))}
         </div>

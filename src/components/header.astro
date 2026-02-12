@@ -4,24 +4,25 @@ const links = [
     { titulo: "Serviços", href: "/#servicos" },
     { titulo: "Vantagens", href: "/#vantagens" },
     { titulo: "Sobre", href: "/#sobre" },
+    { titulo: "Depoimentos", href: "/#depoimentos" },
     { titulo: "Planos", href: "/planos" },
-    // { titulo: "Depoimentos", href: "#depoimentos" },
+    { titulo: "Cursos", href: "/cursos" },
 ];
 ---
 
 <div class="fixed top-0 w-screen justify-center items-center flex z-9998">
     <header
-        class="w-[95vw] bg-primary/70 text-white backdrop-blur-2xl z-50 m-2 rounded-xl shadow-lg border border-primary"
+        class="w-[95vw] bg-primary/70 text-white backdrop-blur-2xl z-50 m-1.5 sm:m-2 rounded-lg sm:rounded-xl shadow-lg border border-primary"
     >
-        <div class="corpo mx-auto h-20 flex items-center justify-between">
-            <div class="flex items-center gap-3">
+        <div class="corpo mx-auto h-16 sm:h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2 sm:gap-3">
                 <img
-                    class="h-10 w-10"
+                    class="h-8 w-8 sm:h-10 sm:w-10"
                     src="/favicon.png"
                     alt="Autoescola Danda - Aparecida do Taboado MS - Logo"
                 />
                 <a
-                    class="text-xl font-light"
+                    class="text-base sm:text-xl font-light"
                     href="/"
                     title="Autoescola Danda - Aparecida do Taboado MS"
                 >
@@ -30,12 +31,12 @@ const links = [
             </div>
 
             <!-- Menu Desktop -->
-            <nav class="hidden xl:flex items-center gap-8">
+            <nav class="hidden xl:flex items-center gap-4">
                 {
                     links.map((link) => (
                         <a
                             href={link.href}
-                            class=" hover:text-amber-400 transition-all font-medium"
+                            class=" hover:text-amber-400 text-sm transition-all font-medium"
                         >
                             {link.titulo}
                         </a>
@@ -43,19 +44,21 @@ const links = [
                 }
             </nav>
 
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2 sm:gap-4">
                 <a
                     href="/#contato"
-                    class="hidden md:flex bg-amber-500 text-white px-6 py-3 rounded-full font-medium hover:bg-amber-600 transition-all items-center gap-2"
+                    class="hidden md:flex bg-amber-500 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-full font-medium hover:bg-amber-600 transition-all items-center gap-2 text-sm sm:text-base"
                 >
-                    <span class="material-symbols-outlined text-lg">phone</span>
+                    <span class="material-symbols-outlined text-base sm:text-lg">phone</span>
                     Contato
                 </a>
 
-                <!-- Menu Mobile Button -->
+                <!-- Menu Mobile Button - Touch-friendly 48px -->
                 <button
                     id="menu-toggle"
-                    class="xl:hidden cursor-pointer flex items-center justify-center w-10 h-10 rounded-lg hover:bg-neutral-100 transition-all"
+                    aria-label="Abrir menu de navegação"
+                    aria-expanded="false"
+                    class="xl:hidden cursor-pointer flex items-center justify-center w-12 h-12 rounded-lg hover:bg-neutral-100/10 active:bg-neutral-100/20 transition-all"
                 >
                     <span class="material-symbols-outlined text-2xl">menu</span>
                 </button>
@@ -65,13 +68,14 @@ const links = [
         <!-- Menu Mobile -->
         <nav
             id="menu-mobile"
-            class="xl:hidden hidden flex-col bg-primary/60 backdrop-blur-2xl border-t border-neutral-100 pb-4 rounded-b-xl shadow-lg"
+            aria-label="Menu de navegação mobile"
+            class="xl:hidden hidden flex-col bg-primary/60 backdrop-blur-2xl border-t border-neutral-100 pb-4 rounded-b-xl shadow-lg menu-mobile-enter"
         >
             {
                 links.map((link) => (
                     <a
                         href={link.href}
-                        class="px-7 py-3 hover:text-amber-400 hover:bg-neutral-50 transition-all font-medium"
+                        class="px-6 py-4 hover:text-amber-400 hover:bg-neutral-50/5 active:bg-neutral-50/10 transition-all font-medium text-base"
                     >
                         {link.titulo}
                     </a>
@@ -79,7 +83,7 @@ const links = [
             }
             <a
                 href="#contato"
-                class="mx-7 mt-3 bg-amber-500 text-white px-6 py-3 rounded-full font-medium hover:bg-amber-600 transition-all text-center"
+                class="mx-6 mt-3 bg-amber-500 text-white px-6 py-4 rounded-full font-medium hover:bg-amber-600 active:bg-amber-700 transition-all text-center text-base"
             >
                 Contato
             </a>
@@ -92,15 +96,42 @@ const links = [
     const menuMobile = document.getElementById("menu-mobile");
 
     menuToggle?.addEventListener("click", () => {
-        menuMobile?.classList.toggle("hidden");
-        menuMobile?.classList.toggle("flex");
+        const isExpanded = menuMobile?.classList.contains("flex");
+
+        if (isExpanded) {
+            // Fechar menu
+            menuMobile?.classList.remove("menu-mobile-enter-active");
+            menuMobile?.classList.add("menu-mobile-exit-active");
+
+            setTimeout(() => {
+                menuMobile?.classList.add("hidden");
+                menuMobile?.classList.remove("flex", "menu-mobile-exit-active");
+            }, 300);
+        } else {
+            // Abrir menu
+            menuMobile?.classList.remove("hidden");
+            menuMobile?.classList.add("flex");
+
+            setTimeout(() => {
+                menuMobile?.classList.add("menu-mobile-enter-active");
+            }, 10);
+        }
+
+        menuToggle?.setAttribute("aria-expanded", isExpanded ? "false" : "true");
     });
 
     // Fecha o menu ao clicar em um link
     menuMobile?.querySelectorAll("a").forEach((link) => {
         link.addEventListener("click", () => {
-            menuMobile.classList.add("hidden");
-            menuMobile.classList.remove("flex");
+            menuMobile.classList.remove("menu-mobile-enter-active");
+            menuMobile.classList.add("menu-mobile-exit-active");
+
+            setTimeout(() => {
+                menuMobile.classList.add("hidden");
+                menuMobile.classList.remove("flex", "menu-mobile-exit-active");
+            }, 300);
+
+            menuToggle?.setAttribute("aria-expanded", "false");
         });
     });
 </script>
