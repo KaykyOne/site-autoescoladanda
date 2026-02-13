@@ -11,7 +11,7 @@ const links = [
 const servicos = [
     { nome: "Categoria A (Moto)", icone: "two_wheeler" },
     { nome: "Categoria B (Carro)", icone: "directions_car" },
-    { nome: "Categoria A+B", icone: "local_shipping" },
+    { nome: "Categoria A+B", icone: "looks_two" },
     { nome: "Reciclagem", icone: "autorenew" },
     { nome: "Cursos Especializantes", icone: "school", link: "/cursos" },
 ];
@@ -81,7 +81,9 @@ const servicos = [
                                     href={link.href}
                                     class="text-neutral-400 hover:text-primary transition-all flex items-center gap-2"
                                 >
-                                    <span class="material-symbols-outlined text-sm">chevron_right</span>
+                                    <span class="material-symbols-outlined text-sm">
+                                        chevron_right
+                                    </span>
                                     {link.titulo}
                                 </a>
                             </li>
@@ -98,18 +100,25 @@ const servicos = [
                         servicos.map((servico) => (
                             <li class="flex items-center gap-2">
                                 {servico.link ? (
-                                    <a href={servico.link} class="flex items-center gap-2 hover:text-primary transition-colors">
+                                    <a
+                                        href={servico.link}
+                                        class="flex items-center gap-2 hover:text-primary transition-colors"
+                                    >
                                         <span class="material-symbols-outlined text-secondary text-lg">
                                             {servico.icone}
                                         </span>
-                                        <span class="text-neutral-400 hover:text-primary transition-colors">{servico.nome}</span>
+                                        <span class="text-neutral-400 hover:text-primary transition-colors">
+                                            {servico.nome}
+                                        </span>
                                     </a>
                                 ) : (
                                     <>
                                         <span class="material-symbols-outlined text-secondary text-lg">
                                             {servico.icone}
                                         </span>
-                                        <span class="text-neutral-400">{servico.nome}</span>
+                                        <span class="text-neutral-400">
+                                            {servico.nome}
+                                        </span>
                                     </>
                                 )}
                             </li>
@@ -157,9 +166,15 @@ const servicos = [
                 <p class="text-neutral-500 text-sm">
                     © 2024 Autoescola Danda. Todos os direitos reservados.
                 </p>
-                <p class="text-neutral-500 text-sm">
-                    Desenvolvido com <span class="text-red-500">❤</span> para você
-                </p>
+                <a class="flex flex-col group cursor-pointer" target="_blank" href="https://thenovustech.com.br/">
+                    <p class="text-neutral-500 text-sm group-hover:text-white">
+                        Desenvolvido pela <span
+                            class="text-[#99227f] font-semibold"
+                            >TheNovusTech</span
+                        > para você
+                    </p>
+                    <div class="w-0 h-[1px] group-hover:w-full bg-[#99227f] transition-all duration-300"></div>
+                </a>
             </div>
         </div>
     </div>

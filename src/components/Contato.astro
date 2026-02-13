@@ -26,21 +26,31 @@ const informacoes = [
 <section id="contato" class="w-full flex flex-col pt-12 sm:pt-16 md:pt-20">
     <div class="corpo mx-auto">
         <div class="text-center mb-10 sm:mb-12 md:mb-16 px-4">
-            <p class="text-primary font-semibold uppercase tracking-wider mb-2 text-xs sm:text-sm">
+            <p
+                class="text-primary font-semibold uppercase tracking-wider mb-2 text-xs sm:text-sm"
+            >
                 Contato
             </p>
-            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-800">
+            <h2
+                class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-800"
+            >
                 Fale conosco
             </h2>
-            <p class="text-neutral-500 mt-3 sm:mt-4 max-w-2xl mx-auto text-sm sm:text-base">
+            <p
+                class="text-neutral-500 mt-3 sm:mt-4 max-w-2xl mx-auto text-sm sm:text-base"
+            >
                 Entre em contato e tire todas as suas dúvidas. Estamos prontos
                 para ajudar!
             </p>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 px-4">
+        <div
+            class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 px-4"
+        >
             <div>
-                <div class="grid grid-cols-1 gap-3 sm:gap-4 mb-6 sm:mb-8 p-4 sm:p-6 lg:p-8 w-full">
+                <div
+                    class="grid grid-cols-1 gap-3 sm:gap-4 mb-6 sm:mb-8 p-4 sm:p-6 lg:p-8 w-full"
+                >
                     {
                         informacoes.map((info) => (
                             <div class="flex gap-3 sm:gap-4 p-4 sm:p-5 rounded-xl bg-neutral-50 w-full">
@@ -98,7 +108,9 @@ const informacoes = [
             </div>
 
             <div class="bg-neutral-50 rounded-2xl p-6 sm:p-8">
-                <h3 class="text-xl sm:text-2xl font-bold text-neutral-800 mb-4 sm:mb-6">
+                <h3
+                    class="text-xl sm:text-2xl font-bold text-neutral-800 mb-4 sm:mb-6"
+                >
                     Envie uma mensagem
                 </h3>
                 <form id="formContato" class="flex flex-col gap-4">
@@ -116,7 +128,12 @@ const informacoes = [
                             placeholder="Digite seu nome"
                             class="w-full px-4 py-3 sm:py-3.5 rounded-xl border border-neutral-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-sm sm:text-base"
                         />
-                        <span id="erroNome" class="text-red-500 text-xs sm:text-sm mt-1 hidden">Por favor, digite seu nome completo (mínimo 3 caracteres)</span>
+                        <span
+                            id="erroNome"
+                            class="text-red-500 text-xs sm:text-sm mt-1 hidden"
+                            >Por favor, digite seu nome completo (mínimo 3
+                            caracteres)</span
+                        >
                     </div>
                     <div>
                         <label
@@ -132,7 +149,12 @@ const informacoes = [
                             id="txtMensagemContato"
                             class="w-full px-4 py-3 sm:py-3.5 rounded-xl border border-neutral-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none text-sm sm:text-base"
                         ></textarea>
-                        <span id="erroMensagem" class="text-red-500 text-xs sm:text-sm mt-1 hidden">Por favor, digite uma mensagem (mínimo 10 caracteres)</span>
+                        <span
+                            id="erroMensagem"
+                            class="text-red-500 text-xs sm:text-sm mt-1 hidden"
+                            >Por favor, digite uma mensagem (mínimo 10
+                            caracteres)</span
+                        >
                     </div>
                     <button
                         type="submit"
@@ -145,33 +167,86 @@ const informacoes = [
             </div>
         </div>
     </div>
-    <div
-        class="w-full bg-neutral-900 mt-12 sm:mt-16 md:mt-20 p-6 sm:p-8 md:p-10 grid grid-cols-1 gap-4 text-white text-center"
-    >
+
+    <section class="w-full mt-16 sm:mt-20">
         <div
-            class="flex flex-col justify-center items-center"
+            class="w-full mx-auto bg-neutral-900 backdrop-blur-xl border border-white/10 shadow-2xl p-8 sm:p-10 text-white"
         >
-            <h1 class="text-2xl sm:text-3xl font-semibold mb-2 px-4">Nossa localização</h1>
-            <p class="text-sm sm:text-base px-4 mb-6">Venha encontrar a gente! estamos ansiosos pela sua presença!</p>
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3747.2602397834135!2d-51.097247499999995!3d-20.081405399999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9499919bd3ee881b%3A0x2b5ef7a90286f861!2sAutoescola%20Danda%20-%20Aparecida%20do%20Taboado%20-%20MS!5e0!3m2!1spt-BR!2sbr!4v1769521598812!5m2!1spt-BR!2sbr"
-                class="rounded-2xl w-full h-[250px] sm:h-[300px] md:h-[400px]"
-                style="border:0;"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div class="grid md:grid-cols-2 gap-10 items-center">
+                <!-- Texto -->
+                <div class="text-left space-y-4">
+                    <span
+                        class="text-amber-400 font-medium text-sm uppercase tracking-widest"
+                    >
+                        Onde estamos
+                    </span>
+
+                    <h2 class="text-3xl sm:text-4xl font-bold leading-tight">
+                        Venha nos visitar e dar o primeiro passo para sua CNH
+                    </h2>
+
+                    <p class="text-neutral-300 text-sm sm:text-base">
+                        Estamos em <strong>Aparecida do Taboado - MS</strong>,
+                        em uma localização de fácil acesso. Nossa equipe está
+                        pronta para te atender e tirar todas as suas dúvidas.
+                    </p>
+
+                    <div class="flex flex-col gap-2 text-sm text-neutral-400">
+                        <span class="flex items-center gap-2">
+                            <span
+                                class="material-symbols-outlined text-amber-400"
+                                >location_on</span
+                            >
+                            Centro, Aparecida do Taboado - MS
+                        </span>
+
+                        <span class="flex items-center gap-2">
+                            <span
+                                class="material-symbols-outlined text-amber-400"
+                                >schedule</span
+                            >
+                            Atendimento de Segunda a Sexta
+                        </span>
+                    </div>
+
+                    <a
+                        href="https://maps.app.goo.gl/iB6UgjMzsyryFpEH7"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center justify-center gap-2 mt-6 bg-amber-500 hover:bg-amber-600 px-6 py-3 rounded-full font-semibold shadow-lg hover:shadow-amber-500/40 transition-all hover:scale-[1.03]"
+                    >
+                        Abrir no Google Maps
+                        <span class="material-symbols-outlined">north_east</span
+                        >
+                    </a>
+                </div>
+
+                <!-- Mapa -->
+                <div
+                    class="rounded-2xl overflow-hidden border border-white/10 shadow-xl"
+                >
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3747.2602397834135!2d-51.097247499999995!3d-20.081405399999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9499919bd3ee881b%3A0x2b5ef7a90286f861!2sAutoescola%20Danda%20-%20Aparecida%20do%20Taboado%20-%20MS!5e0!3m2!1spt-BR!2sbr!4v1769521598812!5m2!1spt-BR!2sbr"
+                        class="w-full h-[300px] sm:h-[400px]"
+                        style="border:0;"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                    >
+                    </iframe>
+                </div>
+            </div>
         </div>
-        <a class="bg-red-700 p-4 w-full flex gap-2 sm:gap-4 items-center justify-center hover:bg-red-800 active:bg-red-900 transition-all rounded-lg mt-3 sm:mt-6 cursor-pointer min-h-[48px] text-sm sm:text-base" href="https://maps.app.goo.gl/iB6UgjMzsyryFpEH7" target="_blank" rel="noopener noreferrer">
-            Abrir no Google Maps
-            <span class="material-symbols-outlined"> map_pin_heart </span>
-        </a>
-    </div>
+    </section>
 </section>
 
 <script>
     const form = document.getElementById("formContato") as HTMLFormElement;
-    const inputNome = document.getElementById("txtNomeContato") as HTMLInputElement;
-    const inputMensagem = document.getElementById("txtMensagemContato") as HTMLTextAreaElement;
+    const inputNome = document.getElementById(
+        "txtNomeContato",
+    ) as HTMLInputElement;
+    const inputMensagem = document.getElementById(
+        "txtMensagemContato",
+    ) as HTMLTextAreaElement;
     const erroNome = document.getElementById("erroNome");
     const erroMensagem = document.getElementById("erroMensagem");
 
