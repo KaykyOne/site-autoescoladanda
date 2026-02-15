@@ -54,8 +54,8 @@ const servicos = [
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {servicos.map((servico, index) => (
-                <div class="scroll-animate bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-shadow duration-200 border border-neutral-100" style={`transition-delay: ${index * 0.1}s`}>
-                    <div class={`w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 ${servico.cor === 'primary' ? 'bg-primary/10 text-primary' : 'bg-secondary/10 text-secondary'}`}>
+                <div class="scroll-animate bg-white rounded-lg sm:rounded-lg p-6 sm:p-8 shadow-lg hover:shadow-xl transition-shadow duration-200 border border-neutral-100" style={`transition-delay: ${index * 0.1}s`}>
+                    <div class={`w-14 h-14 sm:w-16 sm:h-16 rounded-lg sm:rounded-lg flex items-center justify-center mb-4 sm:mb-6 ${servico.cor === 'primary' ? 'bg-primary/10 text-primary' : 'bg-secondary/10 text-secondary'}`}>
                         <span class="material-symbols-outlined text-2xl sm:text-3xl">{servico.icone}</span>
                     </div>
                     <h3 class="text-lg sm:text-xl font-bold text-neutral-800 mb-2 sm:mb-3">{servico.titulo}</h3>

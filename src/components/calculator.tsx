@@ -1,11 +1,11 @@
-import { set } from 'astro:schema';
 import React, { useState, useEffect, type JSX } from 'react'
-
 type tipos = 'carroMoto' | 'moto' | 'carro'
-const valorOriginalAula = 100
-const custoAluguelCarro = 49.99;
+const valorOriginalAula = 150
+const custoAluguelPorVeiculo = 49.99;
+const numeroParcelasMaximo = 18;
+const numeroParcelasSemJuros = 6;
 
-const taxas: any = {
+const taxas: Record<number, number> = {
     1: 3.51,
     2: 4.36,
     3: 5.15,
@@ -34,8 +34,8 @@ export default function Calculator() {
     const [valorTotalSemJuros, setValorTotalSemJuros] = useState<number>(0)
     const [valorPorAula, setValorPorAula] = useState<number>(0)
     const [valorAluguel, setValorAluguel] = useState<number>(0)
-    const [valorAula, setValorAula] = useState<number>(100)
-    const [numeroParcelas, setNumeroParcelas] = useState<number>(3)
+    const [valorAula, setValorAula] = useState<number>(valorOriginalAula)
+    const [numeroParcelas, setNumeroParcelas] = useState<number>(numeroParcelasSemJuros)
     const [aulasTotaisSoma, setAulasTotaisSoma] = useState<number>(4)
 
     useEffect(() => {
@@ -48,7 +48,7 @@ export default function Calculator() {
     }, [numAulasMoto, numAulasCarro, tipo])
 
     useEffect(() => {
-        if (numeroParcelas > 3) {
+        if (numeroParcelas > numeroParcelasSemJuros) {
             const resultado = calcularValorComJuros(valorTotalSemJuros, numeroParcelas)
             setValorTotal(resultado)
         } else {
@@ -81,18 +81,18 @@ export default function Calculator() {
     const RenderInputs = () => {
         if (!tipo) return null;
 
-        const tipos: tipos[] = [];
-        if (tipo === 'carro') tipos.push('carro');
-        if (tipo === 'moto') tipos.push('moto');
+        const tiposInput: tipos[] = [];
+        if (tipo === 'carro') tiposInput.push('carro');
+        if (tipo === 'moto') tiposInput.push('moto');
         if (tipo == 'carroMoto') {
-            tipos.push('carro');
-            tipos.push('moto');
+            tiposInput.push('carro');
+            tiposInput.push('moto');
         }
 
         return (
             <div className=' flex flex-col gap-3 mt-4'>
                 {
-                    tipos.map((t) => (
+                    tiposInput.map((t) => (
                         <div className='flex flex-col' key={t}>
                             <legend className='mb-2 text-sm text-blue-200'>
                                 {`> Número de aulas de ${t}`}
@@ -122,15 +122,10 @@ export default function Calculator() {
         );
     };
 
-
-    const aplicarDesconto = (valor: number, desconto: number) => {
-        return valor - (valor * (desconto / 100))
-    }
-
     const calcularValorComDesconto = () => {
         let aulasTotais = 0;
         let valorAluguel = calcularCustoAluguel();
-        let valorAulaLocal = 100;
+        let valorAulaLocal = valorOriginalAula;
 
         if (tipo) {
             if (tipo === 'carro') {
@@ -146,17 +141,17 @@ export default function Calculator() {
             }
         }
         if (aulasTotais >= 10 && aulasTotais < 15) {
-            valorAulaLocal = 90;
+            valorAulaLocal = valorOriginalAula * 0.9;
         }
         else if (aulasTotais >= 15 && aulasTotais < 20) {
-            valorAulaLocal = 85;
+            valorAulaLocal = valorOriginalAula * 0.85;
             valorAluguel = valorAluguel / 2 - 0.01;
         }
         else if (aulasTotais >= 20) {
-            valorAulaLocal = 80;
+            valorAulaLocal = valorOriginalAula * 0.8;
             valorAluguel = 0;
         } else {
-            valorAulaLocal = 100;
+            valorAulaLocal = valorOriginalAula;
             valorAluguel = calcularCustoAluguel();
         }
         setAulasTotaisSoma(aulasTotais)
@@ -169,21 +164,15 @@ export default function Calculator() {
 
     const calcularCustoAluguel = () => {
         if (tipo === 'carro' || tipo === 'moto') {
-            return custoAluguelCarro
+            return custoAluguelPorVeiculo
         }
-        return custoAluguelCarro * 2 + 0.01
+
+        return custoAluguelPorVeiculo * 2 + 0.01
     }
-
-
-    const testDescontoAula = valorOriginalAula - valorAula > 0 ? true : false;
-    const testDescontoAluguel = calcularCustoAluguel() - valorAluguel;
-    const descontoAluguel = testDescontoAluguel * 100 / calcularCustoAluguel();
-    const descontoAula = (valorOriginalAula - valorAula) * 100 / valorOriginalAula;
-
 
     const DivDescontoAula = () => {
         return (
-            <div className="relative flex mt-6 overflow-hidden rounded-2xl border border-amber-400 bg-amber-200 p-5 shadow-lg min-h-30 justify-start items-center">
+            <div className="relative flex mt-6 overflow-hidden rounded-lg border border-amber-400 bg-amber-200 p-5 shadow-lg min-h-30 justify-start items-center">
                 {/* brilho decorativo */}
                 <div className="pointer-events-none absolute -top-10 -right-10 h-32 w-32 rounded-full bg-white/30 blur-2xl" />
 
@@ -213,7 +202,7 @@ export default function Calculator() {
 
     const DivDescontoVeiculo = () => {
         return (
-            <div className="relative mt-6 flex overflow-hidden rounded-2xl border border-green-500 bg-green-400 p-5 shadow-lg lg min-h-30 justify-start items-center">
+            <div className="relative mt-6 flex overflow-hidden rounded-lg border border-green-500 bg-green-400 p-5 shadow-lg lg min-h-30 justify-start items-center">
                 {/* brilho decorativo */}
                 <div className="pointer-events-none absolute -top-10 -right-10 h-32 w-32 rounded-full bg-white/20 blur-2xl" />
 
@@ -242,7 +231,7 @@ export default function Calculator() {
 
     const Detalhes = () => {
         return (
-            <div className='bg-blue-600/40 p-5 rounded-3xl border-2 border-blue-300 w-full h-full mt-4'>
+            <div className='bg-blue-600/40 p-5 rounded-lg border-2 border-blue-300 w-full h-full mt-6'>
                 <h2 className='text-lg font-medium mb-2 text-blue-200 uppercase'>Incluido no pacote:</h2>
                 <ul className='flex flex-col list-disc list-inside'>
                     {tipo.toLocaleLowerCase().includes("carro") && <li>{numAulasCarro} x Aulas de Carro</li>}
@@ -262,9 +251,9 @@ export default function Calculator() {
     const reset = () => {
         setNumAulasMoto(2)
         setNumAulasCarro(2)
-        setValorAula(100)
+        setValorAula(valorOriginalAula)
         setTipo('carroMoto')
-        setNumeroParcelas(3)
+        setNumeroParcelas(numeroParcelasSemJuros)
     }
 
     const enviarMensagem = () => {
@@ -273,7 +262,7 @@ export default function Calculator() {
             `Número de aulas de ${tipo === 'carroMoto' ? `carro: ${numAulasCarro}%0ANúmero de aulas de moto: ${numAulasMoto}%0A` : (tipo === 'carro' ? `carro: ${numAulasCarro}%0A` : `moto: ${numAulasMoto}%0A`)}` +
             `Número de parcelas: ${numeroParcelas}%0A` +
             `Valor Aproximado ${formatter.format(valorTotal)}%0A` +
-            `${numeroParcelas > 3 ? 'Com juros da maquininha inclusos!%0A%0A' : 'SEM JUROS%0A%0A'}` +
+            `${numeroParcelas > numeroParcelasSemJuros ? 'Com juros da maquininha inclusos!%0A%0A' : 'SEM JUROS%0A%0A'}` +
             `Por favor, me envie mais informações sobre como proceder. Obrigado!`;
         window.open(`https://wa.me/5567981368080?text=${mensagem}`, '_blank');
     }
@@ -281,25 +270,55 @@ export default function Calculator() {
     const Buttons = () => {
         return (
             <div className='grid-cols-1 lg:grid-cols-5 gap-2 mt-5 grid'>
-                <button className='border bg-neutral-100/30 col-span-2 hover:bg-neutral-400/40 transition-all duration-300 py-3 px-6 text-white w-full rounded-full cursor-pointer hover:opacity-90' onClick={() => reset()}>
+                <button className='border bg-neutral-100/30 col-span-2 hover:bg-neutral-400/40 transition-all duration-300 py-3 px-6 text-white w-full rounded-lg cursor-pointer hover:opacity-90' onClick={() => reset()}>
                     Reiniciar
                 </button>
-                <button className='bg-green-400/80 border col-span-3 border-green-200 hover:bg-green-600/40 transition-all duration-300 py-3 px-6 text-green-900 w-full rounded-full cursor-pointer hover:opacity-90' onClick={() => enviarMensagem()}>
+                <button className='bg-green-600 border col-span-3 border-green-200 hover:bg-green-600/40 transition-all duration-300 py-3 px-6 text-white w-full rounded-lg cursor-pointer hover:opacity-90' onClick={() => enviarMensagem()}>
                     Quero iniciar agora!
-                    <p className='text-[10px] text-green-900'>Leva menos de 2 minutos!</p>
+                    <p className='text-[10px] text-white'>Leva menos de 2 minutos!</p>
                 </button>
             </div>
         )
     }
 
-    const cssSelecionado = 'bg-secondary/40 p-5 rounded-3xl justify-center items-center border-2 border-amber-300 flex flex-col gap-1 w-full text-amber-300 cursor-pointer hover:border-amber-400 hover:bg-secondary/60 transition-all duration-300';
-    const cssPadrao = 'bg-blue-600/40 p-5 rounded-3xl justify-center items-center border-2 border-blue-300 flex flex-col gap-1 w-full text-blue-200 cursor-pointer hover:border-blue-400 hover:bg-blue-600/60 transition-all duration-300';
+    const Warning = () => (
+        <div className="flex flex-col w-full ">
+            <div className="flex flex-col h-24 w-full bg-amber-200 border-2 border-amber-400 text-amber-600 rounded-lg p-8 justify-center items-center">
+                <h1 className='text-xl font-semibold'>Aviso</h1>
+                <p className='mt-2 text-center text-[10px]'>- Os valores apresentados são estimativas baseadas nas informações fornecidas. O valor final pode variar dependendo de fatores adicionais, como taxas administrativas, impostos e custos específicos da região. Entre em contato conosco para obter um orçamento preciso e personalizado.-</p>
+                <p className='mt-2 text-center text-[10px]'>- Valores adulterados não serão aceitos, e o valor final sempre será o da autoescola.-</p>
+            </div>
+        </div>
+    )
+
+    const Part2 = () => (
+        <div className='flex flex-col gap-1'>
+            <h3 className='text-xl'>Valor total aproximado:</h3>
+            <h1 className='text-4xl lg:text-6xl font-semibold'>{formatter.format(valorTotal)}</h1>
+            {numeroParcelas > 1 ? <p className='mt-3 opacity-80 font-light'>ou em <strong className='uppercase font-semibold text-2xl'>{numeroParcelas}x</strong> de <strong className='uppercase font-semibold text-2xl'>{formatter.format(valorTotal / numeroParcelas)}</strong> {valorTotal == valorTotalSemJuros ? 'SEM JUROS' : 'com juros da maquininha'}</p> : <p>A vista    </p>}
+            <h3 className='text-md lg:text-lg mt-4 lg:mt-6 text-blue-200'>Valor por aula aproximado:</h3>
+            <h1 className='text-2xl lg:text-4xl font-semibold text-blue-200'>{formatter.format(valorPorAula)}</h1>
+            <Detalhes />
+            <p className='mt-4'>* Os valores apresentados não incluem taxas e exames adicionais.</p>
+            <Buttons />
+        </div>
+    )
+
+    const descontoAluguelValor = calcularCustoAluguel() - valorAluguel;
+    const temDescontoAluguel = descontoAluguelValor > 0;
+    const descontoAluguel = descontoAluguelValor * 100 / calcularCustoAluguel();
+
+    const testDescontoAula = valorOriginalAula - valorAula > 0 ? true : false;
+    const descontoAula = (valorOriginalAula - valorAula) * 100 / valorOriginalAula;
+
+    const cssSelecionado = 'bg-secondary/40 p-5 rounded-lg justify-center items-center border-2 border-amber-300 flex flex-col gap-1 w-full text-amber-300 cursor-pointer hover:border-amber-400 hover:bg-secondary/60 transition-all duration-300';
+    const cssPadrao = 'bg-blue-600/40 p-5 rounded-lg justify-center items-center border-2 border-blue-300 flex flex-col gap-1 w-full text-blue-200 cursor-pointer hover:border-blue-400 hover:bg-blue-600/60 transition-all duration-300';
 
 
     return (
 
         <>
-            <div className='w-full bg-linear-65 p-8 from-primary/90 to-primary/70 border-2 border-primary text-white rounded-3xl shadow-lg grid grid-cols-1 lg:grid-cols-2 gap-4 mb-10 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 '>
+            <div className='w-full bg-linear-65 p-8 from-primary to-primary border-2 border-primary text-white rounded-lg shadow-lg grid grid-cols-1 lg:grid-cols-2 gap-4 mb-10 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 '>
                 <div className='flex flex-col relative'>
                     <div className='opacity-40 flex gap-2 items-center justify-start'>
                         <div className='bg-blue-200 rounded-full h-3 w-3'></div>
@@ -326,7 +345,7 @@ export default function Calculator() {
                                 type='radio'
                                 name="drone"
                                 value={'carroMoto'}
-                                
+
                                 className='hidden'
                                 readOnly
                                 id="carroMoto"
@@ -368,31 +387,16 @@ export default function Calculator() {
                     <RenderInputs />
                     <div className='mt-3 gap-4 flex flex-col'>
                         <label htmlFor='numeroParcelas' className='mt-6 text-lg font-medium'>Número de parcelas: {numeroParcelas}</label>
-                        <input type="range" name="numeroParcelas" value={numeroParcelas} min={1} max={18} onChange={(e) => setNumeroParcelas(Number(e.target.value))} />
-                        <p className='text-sm font-light mt-2 text-blue-200'>Parcelamento em até 3x é SEM JUROS</p>
+                        <input type="range" name="numeroParcelas" value={numeroParcelas} min={1} max={numeroParcelasMaximo} onChange={(e) => setNumeroParcelas(Number(e.target.value))} />
+                        <p className='text-sm font-light mt-2 text-blue-200'>Parcelamento em até {numeroParcelasSemJuros}x é SEM JUROS</p>
                     </div>
                     {testDescontoAula && <DivDescontoAula />}
-                    {(testDescontoAluguel > 0) && <DivDescontoVeiculo />}
+                    {temDescontoAluguel && <DivDescontoVeiculo />}
                 </div>
-                <div className='flex flex-col ga-1'>
-                    <h3 className='text-xl'>Valor total aproximado:</h3>
-                    <h1 className='text-4xl lg:text-6xl font-semibold'>{formatter.format(valorTotal)}</h1>
-                    {numeroParcelas > 1 ? <p className='mt-3 opacity-00 font-light'>ou em <strong className='uppercase font-semibold text-2xl'>{numeroParcelas}x</strong> de <strong className='uppercase font-semibold text-2xl'>{formatter.format(valorTotal / numeroParcelas)}</strong> {valorTotal == valorTotalSemJuros ? 'SEM JUROS' : 'com juros da maquininha'}</p> : <p>A vista    </p>}
-                    <h3 className='text-md lg:text-lg mt-4 lg:mt-6 text-blue-200'>Valor por aula aproximado:</h3>
-                    <h1 className='text-2xl lg:text-4xl font-semibold text-blue-200'>{formatter.format(valorPorAula)}</h1>
-                    <Detalhes />
-                    <p className='mt-4'>* Os valores apresentados não incluem taxas e exames adicionais.</p>
-                    <Buttons />
-                </div>
+                <Part2 />
             </div>
             {/* ------------------------------------------------ */}
-            <div className="flex flex-col w-full ">
-                <div className="flex flex-col h-24 w-full bg-amber-200 border-2 border-amber-400 text-amber-600 rounded-3xl p-8 justify-center items-center">
-                    <h1 className='text-xl font-semibold'>Aviso</h1>
-                    <p className='mt-2 text-center text-[10px]'>- Os valores apresentados são estimativas baseadas nas informações fornecidas. O valor final pode variar dependendo de fatores adicionais, como taxas administrativas, impostos e custos específicos da região. Entre em contato conosco para obter um orçamento preciso e personalizado.-</p>
-                    <p className='mt-2 text-center text-[10px]'>- Valores adulterados não serão aceitos, e o valor final sempre será o da autoescola.-</p>
-                </div>
-            </div>
+            <Warning />
         </>
 
     )

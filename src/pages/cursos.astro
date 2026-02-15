@@ -8,12 +8,13 @@ const cursos = [
 		descricao: "Curso obrigatório para motoristas que transportam produtos perigosos",
 		preco: "R$ 285,99",
 		icone: "emergency_heat",
+		img: '/cursos/mopp.webp',
 		cor: "primary",
 		link: "/mopp",
 		beneficios: [
 			"100% online",
 			"Acesso 24/7",
-			"Certificado em 1 dia útil"
+			"Certificado em 5 dias úteis"
 		]
 	},
 	{
@@ -22,12 +23,13 @@ const cursos = [
 		descricao: "Habilitação para condutores de ônibus urbano e intermunicipal",
 		preco: "R$ 285,99",
 		icone: "transit_ticket",
+		img: '/cursos/coletivo.webp',
 		cor: "secondary",
 		link: "/transporte-coletivo",
 		beneficios: [
 			"Totalmente online",
 			"Estude quando quiser",
-			"Certificado rápido"
+			"Certificado em 5 dias úteis"
 		]
 	},
 	{
@@ -35,13 +37,14 @@ const cursos = [
 		titulo: "Curso de Transporte Emergencial",
 		descricao: "Habilitação para condutores de ambulância e veículos de emergência",
 		preco: "R$ 285,99",
+		img: '/cursos/emergencia.webp',
 		icone: "ambulance",
 		cor: "primary",
 		link: "/transporte-emergencial",
 		beneficios: [
 			"100% online",
 			"Sem horários fixos",
-			"Certificado imediato"
+			"Certificado em 5 dias úteis"
 		]
 	},
 	{
@@ -50,12 +53,13 @@ const cursos = [
 		descricao: "Habilitação para transporte de crianças e estudantes",
 		preco: "R$ 285,99",
 		icone: "directions_bus",
+		img: '/cursos/escolar.webp',
 		cor: "secondary",
 		link: "/transporte-escolar",
 		beneficios: [
 			"Totalmente online",
 			"Acesse em qualquer hora",
-			"Certificado digital"
+			"Certificado em 5 dias úteis"
 		]
 	},
 	{
@@ -64,12 +68,13 @@ const cursos = [
 		descricao: "Habilitação para transporte de cargas excepcionais e especiais",
 		preco: "R$ 285,99",
 		icone: "local_shipping",
+		img: '/cursos/indivisivel.webp',
 		cor: "primary",
 		link: "/cargas-indivisiveis",
 		beneficios: [
 			"100% online",
 			"Faça a seu ritmo",
-			"Acesso imediato"
+			"Certificado em 5 dias úteis"
 		]
 	}
 ];
@@ -81,7 +86,7 @@ const cursos = [
 >
 	<main class="flex flex-col w-full items-center bg-white min-h-screen">
 		<!-- Hero -->
-		<section class="w-full pt-24 sm:pt-28 md:pt-32 pb-10 sm:pb-12 bg-gradient-to-br from-primary via-primary to-primary/90">
+		<section class="w-full pt-32 sm:pt-34 md:pt-42 pb-10 sm:pb-12 bg-gradient-to-br from-primary via-primary to-primary/90">
 			<div class="corpo mx-auto text-center px-4">
 				<p class="text-white/80 font-semibold uppercase tracking-wider mb-2 text-xs sm:text-sm">
 					Cursos Profissionalizantes
@@ -100,13 +105,17 @@ const cursos = [
 			<div class="corpo mx-auto px-4">
 				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
 					{cursos.map((curso) => (
-						<div class="bg-neutral-50 rounded-2xl p-6 sm:p-8 border-2 border-neutral-100 hover:border-primary/30 transition-all duration-200 flex flex-col">
+						<div class="bg-neutral-50 rounded-lg p-6 sm:p-8 border-2 border-neutral-100 hover:border-primary/30 transition-all duration-200 flex flex-col scroll-animate">
 							<!-- Ícone e Nome -->
-							<div class={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 ${curso.cor === 'primary' ? 'bg-primary/10' : 'bg-secondary/10'}`}>
-								<span class={`material-symbols-outlined text-4xl sm:text-5xl ${curso.cor === 'primary' ? 'text-primary' : 'text-secondary'}`}>
-									{curso.icone}
-								</span>
+							<div class="w-full h-[150px] relative mb-6">
+								<img
+									src={curso.img || ``}
+									alt={curso.nome}
+									class="w-full h-40 object-cover rounded-lg mb-4 sm:mb-6 absolute h-[150px] top-0 left-0"
+									loading="lazy"/>
+
 							</div>
+							
 
 							<!-- Conteúdo -->
 							<div class="flex-1">
@@ -140,7 +149,7 @@ const cursos = [
 								</p>
 							</div>
 							<p class="text-sm text-neutral-600 mt-1 mb-4">
-								ou em até 12x no cartão (com juros da maquininha!)
+								ou em até 12x R$ 30,99 sem juros no cartão
 							</p>
 
 
@@ -148,7 +157,7 @@ const cursos = [
 								{curso.link ? (
 									<a
 										href={curso.link}
-										class="w-full bg-primary hover:bg-primary/90 active:bg-primary/80 text-white py-3.5 sm:py-4 rounded-xl font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition-colors duration-200 min-h-[48px]"
+										class="w-full bg-primary hover:bg-primary/90 active:bg-primary/80 text-white py-3.5 sm:py-4 rounded-lg font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition-colors duration-200 min-h-[48px]"
 									>
 										<span class="material-symbols-outlined">arrow_forward</span>
 										Ver Detalhes
@@ -158,7 +167,7 @@ const cursos = [
 										href={`https://wa.me/5567981368080?text=Olá!%20Quero%20saber%20mais%20sobre%20o%20curso%20de%20${curso.nome}`}
 										target="_blank"
 										rel="noopener noreferrer"
-										class="w-full bg-green-500 hover:bg-green-600 active:bg-green-700 text-white py-3.5 sm:py-4 rounded-xl font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition-colors duration-200 min-h-[48px]"
+										class="w-full bg-green-500 hover:bg-green-600 active:bg-green-700 text-white py-3.5 sm:py-4 rounded-lg font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition-colors duration-200 min-h-[48px]"
 									>
 										<img src="/icone-whatsapp.png" alt="WhatsApp" height="24" width="24" loading="lazy" />
 										Falar no WhatsApp
@@ -185,7 +194,7 @@ const cursos = [
 					href="https://wa.me/5567981368080?text=Olá!%20Tenho%20dúvidas%20sobre%20os%20cursos%20especializantes"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="inline-flex bg-white hover:bg-neutral-100 active:bg-neutral-200 text-secondary px-8 sm:px-12 py-4 sm:py-5 rounded-2xl font-bold text-lg sm:text-xl items-center justify-center gap-3 transition-colors duration-200 shadow-2xl min-h-[60px]"
+					class="inline-flex bg-white hover:bg-neutral-100 active:bg-neutral-200 text-secondary px-8 sm:px-12 py-4 sm:py-5 rounded-lg font-bold text-lg sm:text-xl items-center justify-center gap-3 transition-colors duration-200 shadow-2xl min-h-[60px]"
 				>
 					<img src="/icone-whatsapp.png" alt="WhatsApp" height="32" width="32" loading="lazy" />
 					Falar com Especialista
