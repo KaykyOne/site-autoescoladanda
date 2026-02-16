@@ -1,6 +1,6 @@
 ---
 import Layout from "../layout.astro";
-
+import Modal from "../components/Modal";
 const cursos = [
 	{
 		nome: "MOPP",
@@ -85,6 +85,30 @@ const cursos = [
 	description="Cursos profissionalizantes e especializantes na Autoescola Danda. MOPP, transporte escolar, transporte de passageiros e muito mais."
 >
 	<main class="flex flex-col w-full items-center bg-white min-h-screen">
+		<Modal 
+		client:load 
+		nome="1">
+		<div class="flex flex-col items-center text-center p-6 max-w-md mx-auto">
+
+			<span class="text-sm font-semibold bg-blue-50 text-blue-700 px-3 py-1 rounded-full mb-4">
+			Condição Especial por Tempo Limitado
+			</span>
+
+			<h1 class="text-2xl font-bold text-gray-800 mb-3">
+			Desconto de R$94 aplicado no valor do curso
+			</h1>
+
+			<p class="text-gray-600 mb-4">
+			O valor promocional já está aplicado automaticamente.
+			De R$380,00 por apenas <strong class="text-gray-800">R$285,99</strong>.
+			</p>
+
+			<p class="text-sm text-gray-500">
+			Oferta válida por tempo limitado. Aproveite a condição especial enquanto estiver disponível.
+			</p>
+
+		</div>
+		</Modal>
 		<!-- Hero -->
 		<section class="w-full pt-32 sm:pt-34 md:pt-42 pb-10 sm:pb-12 bg-gradient-to-br from-primary via-primary to-primary/90">
 			<div class="corpo mx-auto text-center px-4">
@@ -95,7 +119,7 @@ const cursos = [
 					Cursos Especializantes
 				</h1>
 				<p class="text-white/90 text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto">
-					Capacitação profissional para motoristas. Certificados válidos em todo o Brasil.
+					Evolução Profissional para motoristas. Certificados válidos em todo o Brasil.
 				</p>
 			</div>
 		</section>
@@ -164,7 +188,7 @@ const cursos = [
 									</a>
 								) : (
 									<a
-										href={`https://wa.me/5567981368080?text=Olá!%20Quero%20saber%20mais%20sobre%20o%20curso%20de%20${curso.nome}`}
+										href={`https://wa.me/55179974376460?text=Olá!%20Quero%20saber%20mais%20sobre%20o%20curso%20de%20${curso.nome}`}
 										target="_blank"
 										rel="noopener noreferrer"
 										class="w-full bg-green-500 hover:bg-green-600 active:bg-green-700 text-white py-3.5 sm:py-4 rounded-lg font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition-colors duration-200 min-h-[48px]"
@@ -184,21 +208,27 @@ const cursos = [
 		<section class="w-full py-12 sm:py-16 bg-gradient-to-br from-secondary to-secondary/90">
 			<div class="corpo mx-auto text-center px-4">
 				<h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
-					Dúvidas sobre qual curso fazer?
+				Não sabe qual curso é ideal para você?
 				</h2>
+
 				<p class="text-white/90 text-base sm:text-lg md:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto">
-					Entre em contato agora! Nossa equipe vai te ajudar a escolher o melhor curso.
+				Fale agora com nossa equipe e receba orientação rápida e segura pelo WhatsApp.
+				Atendimento direto, sem enrolação.
 				</p>
 
 				<a
-					href="https://wa.me/5567981368080?text=Olá!%20Tenho%20dúvidas%20sobre%20os%20cursos%20especializantes"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="inline-flex bg-white hover:bg-neutral-100 active:bg-neutral-200 text-secondary px-8 sm:px-12 py-4 sm:py-5 rounded-lg font-bold text-lg sm:text-xl items-center justify-center gap-3 transition-colors duration-200 shadow-2xl min-h-[60px]"
+				href="https://wa.me/55179974376460?text=Olá!%20Preciso%20de%20orientação%20para%20escolher%20um%20curso"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="inline-flex bg-white hover:bg-neutral-100 active:bg-neutral-200 text-secondary px-8 sm:px-12 py-4 sm:py-5 rounded-lg font-bold text-lg sm:text-xl items-center justify-center gap-3 transition-colors duration-200 shadow-2xl min-h-[60px]"
 				>
-					<img src="/icone-whatsapp.png" alt="WhatsApp" height="32" width="32" loading="lazy" />
-					Falar com Especialista
+				<img src="/icone-whatsapp.png" alt="WhatsApp" height="32" width="32" loading="lazy" />
+				Falar agora pelo WhatsApp
 				</a>
+
+				<p class="text-white/80 text-sm mt-4">
+				✔ Resposta rápida • ✔ Atendimento humano • ✔ Sem compromisso
+				</p>
 			</div>
 		</section>
 	</main>

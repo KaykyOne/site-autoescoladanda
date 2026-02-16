@@ -1,4 +1,5 @@
 import React, { useState, useEffect, type JSX } from 'react'
+
 type tipos = 'carroMoto' | 'moto' | 'carro'
 const valorOriginalAula = 150
 const custoAluguelPorVeiculo = 49.99;
@@ -90,30 +91,29 @@ export default function Calculator() {
         }
 
         return (
-            <div className=' flex flex-col gap-3 mt-4'>
+            <div className='flex flex-col gap-2 mt-3'>
                 {
                     tiposInput.map((t) => (
-                        <div className='flex flex-col' key={t}>
-                            <legend className='mb-2 text-sm text-blue-200'>
-                                {`> Número de aulas de ${t}`}
-                            </legend>
+                        <div className='flex flex-col gap-1' key={t}>
+                            <div className='flex gap-2 items-center justify-between bg-gray-100 p-2 px-4 rounded-lg capitalize'>
+                                <h1 className='text-sm text-gray-800'>Número de aulas de {t}: <span className='font-semibold text-primary'>{t == 'carro' ? numAulasCarro : numAulasMoto}</span></h1>
 
-                            <div className='flex gap-2 items-center'>
-                                <button
-                                    className='input-button'
-                                    onClick={() => alterarAulas(t, t == 'carro' ? numAulasCarro - 1 : numAulasMoto - 1)}
-                                >
-                                    -
-                                </button>
+                                <div className='flex gap-2'>
+                                    <button
+                                        className='border border-gray-300 bg-white hover:bg-gray-50 p-3 rounded-lg w-10 h-10 flex items-center justify-center text-gray-800 cursor-pointer transition'
+                                        onClick={() => alterarAulas(t, t == 'carro' ? numAulasCarro - 1 : numAulasMoto - 1)}
+                                    >
+                                        -
+                                    </button>
 
-                                <h1>{t == 'carro' ? numAulasCarro : numAulasMoto}</h1>
+                                    <button
+                                        className='border border-gray-300 bg-white hover:bg-gray-50 p-3 rounded-lg w-10 h-10 flex items-center justify-center text-gray-800 cursor-pointer transition'
+                                        onClick={() => alterarAulas(t, t == 'carro' ? numAulasCarro + 1 : numAulasMoto + 1)}
+                                    >
+                                        +
+                                    </button>
+                                </div>
 
-                                <button
-                                    className='input-button'
-                                    onClick={() => alterarAulas(t, t == 'carro' ? numAulasCarro + 1 : numAulasMoto + 1)}
-                                >
-                                    +
-                                </button>
                             </div>
                         </div>
                     ))
@@ -172,23 +172,20 @@ export default function Calculator() {
 
     const DivDescontoAula = () => {
         return (
-            <div className="relative flex mt-6 overflow-hidden rounded-lg border border-amber-400 bg-amber-200 p-5 shadow-lg min-h-30 justify-start items-center">
-                {/* brilho decorativo */}
-                <div className="pointer-events-none absolute -top-10 -right-10 h-32 w-32 rounded-full bg-white/30 blur-2xl" />
-
-                <div className="relative z-10 flex items-center gap-4">
-                    <span className="material-symbols-outlined text-amber-700 text-5xl">
+            <div className="relative flex mt-3 overflow-hidden rounded-lg border border-secondary/50 bg-secondary/10 p-3 shadow-sm min-h-24 justify-start items-center">
+                <div className="relative z-10 flex items-center gap-3">
+                    <span className="material-symbols-outlined text-secondary text-4xl">
                         local_offer
                     </span>
 
                     <div className="flex flex-col">
-                        <span className="text-sm uppercase tracking-wide text-amber-800/70">
+                        <span className="text-xs uppercase tracking-wide text-gray-600">
                             Desconto aplicado
                         </span>
 
-                        <span className="text-lg text-amber-900 font-light">
+                        <span className="text-base text-gray-800 font-light">
                             Você recebeu
-                            <strong className="ml-1 font-semibold">
+                            <strong className="ml-1 font-semibold text-secondary">
                                 {descontoAula.toFixed(0)}%
                             </strong>
                             {' '}nas aulas
@@ -202,23 +199,20 @@ export default function Calculator() {
 
     const DivDescontoVeiculo = () => {
         return (
-            <div className="relative mt-6 flex overflow-hidden rounded-lg border border-green-500 bg-green-400 p-5 shadow-lg lg min-h-30 justify-start items-center">
-                {/* brilho decorativo */}
-                <div className="pointer-events-none absolute -top-10 -right-10 h-32 w-32 rounded-full bg-white/20 blur-2xl" />
-
-                <div className="relative z-10 flex items-center gap-4">
-                    <span className="material-symbols-outlined text-green-900 text-5xl">
+            <div className="relative mt-3 flex overflow-hidden rounded-lg border border-primary/50 bg-primary/10 p-3 shadow-sm min-h-24 justify-start items-center">
+                <div className="relative z-10 flex items-center gap-3">
+                    <span className="material-symbols-outlined text-primary text-4xl">
                         directions_car
                     </span>
 
                     <div className="flex flex-col">
-                        <span className="text-sm uppercase tracking-wide text-green-900/70">
+                        <span className="text-xs uppercase tracking-wide text-gray-600">
                             Desconto no aluguel
                         </span>
 
-                        <span className="text-lg text-green-950 font-light">
+                        <span className="text-base text-gray-800 font-light">
                             Você recebeu
-                            <strong className="ml-1 font-semibold">
+                            <strong className="ml-1 font-semibold text-primary">
                                 {descontoAluguel.toFixed(0)}%
                             </strong>
                             {' '}no aluguel dos veículos
@@ -231,9 +225,9 @@ export default function Calculator() {
 
     const Detalhes = () => {
         return (
-            <div className='bg-blue-600/40 p-5 rounded-lg border-2 border-blue-300 w-full h-full mt-6'>
-                <h2 className='text-lg font-medium mb-2 text-blue-200 uppercase'>Incluido no pacote:</h2>
-                <ul className='flex flex-col list-disc list-inside'>
+            <div className='bg-gray-50 p-3 rounded-lg border border-gray-200 w-full h-full mt-3'>
+                <h2 className='text-base font-medium mb-2 text-gray-900 uppercase'>Incluido no pacote:</h2>
+                <ul className='flex flex-col list-disc list-inside text-sm text-gray-700'>
                     {tipo.toLocaleLowerCase().includes("carro") && <li>{numAulasCarro} x Aulas de Carro</li>}
                     {tipo.toLocaleLowerCase().includes("moto") && <li>{numAulasMoto} x Aulas de Moto</li>}
                     <li>Veículo incluso no exame prático</li>
@@ -269,37 +263,26 @@ export default function Calculator() {
 
     const Buttons = () => {
         return (
-            <div className='grid-cols-1 lg:grid-cols-5 gap-2 mt-5 grid'>
-                <button className='border bg-neutral-100/30 col-span-2 hover:bg-neutral-400/40 transition-all duration-300 py-3 px-6 text-white w-full rounded-lg cursor-pointer hover:opacity-90' onClick={() => reset()}>
+            <div className='grid-cols-1 lg:grid-cols-5 gap-2 mt-3 grid'>
+                <button className='border border-gray-300 bg-gray-100 col-span-2 hover:bg-gray-200 transition-all duration-300 py-2 px-4 text-gray-800 text-sm w-full rounded-lg cursor-pointer hover:opacity-90' onClick={() => reset()}>
                     Reiniciar
                 </button>
-                <button className='bg-green-600 border col-span-3 border-green-200 hover:bg-green-600/40 transition-all duration-300 py-3 px-6 text-white w-full rounded-lg cursor-pointer hover:opacity-90' onClick={() => enviarMensagem()}>
+                <button className='bg-primary border col-span-3 border-primary hover:opacity-90 transition-all duration-300 py-2 px-4 text-white w-full rounded-lg cursor-pointer' onClick={() => enviarMensagem()}>
                     Quero iniciar agora!
-                    <p className='text-[10px] text-white'>Leva menos de 2 minutos!</p>
+                    <p className='text-[9px] text-white/90'>Leva menos de 2 minutos!</p>
                 </button>
             </div>
         )
     }
 
-    const Warning = () => (
-        <div className="flex flex-col w-full ">
-            <div className="flex flex-col h-24 w-full bg-amber-200 border-2 border-amber-400 text-amber-600 rounded-lg p-8 justify-center items-center">
-                <h1 className='text-xl font-semibold'>Aviso</h1>
-                <p className='mt-2 text-center text-[10px]'>- Os valores apresentados são estimativas baseadas nas informações fornecidas. O valor final pode variar dependendo de fatores adicionais, como taxas administrativas, impostos e custos específicos da região. Entre em contato conosco para obter um orçamento preciso e personalizado.-</p>
-                <p className='mt-2 text-center text-[10px]'>- Valores adulterados não serão aceitos, e o valor final sempre será o da autoescola.-</p>
-            </div>
-        </div>
-    )
-
     const Part2 = () => (
         <div className='flex flex-col gap-1'>
-            <h3 className='text-xl'>Valor total aproximado:</h3>
-            <h1 className='text-4xl lg:text-6xl font-semibold'>{formatter.format(valorTotal)}</h1>
-            {numeroParcelas > 1 ? <p className='mt-3 opacity-80 font-light'>ou em <strong className='uppercase font-semibold text-2xl'>{numeroParcelas}x</strong> de <strong className='uppercase font-semibold text-2xl'>{formatter.format(valorTotal / numeroParcelas)}</strong> {valorTotal == valorTotalSemJuros ? 'SEM JUROS' : 'com juros da maquininha'}</p> : <p>A vista    </p>}
-            <h3 className='text-md lg:text-lg mt-4 lg:mt-6 text-blue-200'>Valor por aula aproximado:</h3>
-            <h1 className='text-2xl lg:text-4xl font-semibold text-blue-200'>{formatter.format(valorPorAula)}</h1>
+            <h1 className='text-3xl lg:text-5xl font-semibold text-gray-900'>{formatter.format(valorTotal)}</h1>
+            {numeroParcelas > 1 ? <p className='mt-1 opacity-80 font-light text-sm text-gray-600'>ou em <strong className='uppercase font-semibold text-lg text-gray-800'>{numeroParcelas}x</strong> de <strong className='uppercase font-semibold text-lg text-primary'>{formatter.format(valorTotal / numeroParcelas)}</strong> {valorTotal == valorTotalSemJuros ? 'SEM JUROS' : 'com juros'}</p> : <p className='text-sm text-gray-600'>A vista</p>}
+            <h3 className='text-xs mt-2 text-gray-600'>Valor por aula aproximado:</h3>
+            <h1 className='text-lg font-semibold text-primary'>{formatter.format(valorPorAula)}</h1>
             <Detalhes />
-            <p className='mt-4'>* Os valores apresentados não incluem taxas e exames adicionais.</p>
+            <p className='text-xs mt-2 text-gray-500'>* Os valores apresentados não incluem taxas e exames adicionais.</p>
             <Buttons />
         </div>
     )
@@ -311,93 +294,86 @@ export default function Calculator() {
     const testDescontoAula = valorOriginalAula - valorAula > 0 ? true : false;
     const descontoAula = (valorOriginalAula - valorAula) * 100 / valorOriginalAula;
 
-    const cssSelecionado = 'bg-secondary/40 p-5 rounded-lg justify-center items-center border-2 border-amber-300 flex flex-col gap-1 w-full text-amber-300 cursor-pointer hover:border-amber-400 hover:bg-secondary/60 transition-all duration-300';
-    const cssPadrao = 'bg-blue-600/40 p-5 rounded-lg justify-center items-center border-2 border-blue-300 flex flex-col gap-1 w-full text-blue-200 cursor-pointer hover:border-blue-400 hover:bg-blue-600/60 transition-all duration-300';
+    const cssSelecionado = 'bg-primary p-3 rounded-lg justify-center items-center flex flex-col gap-1 w-full text-white cursor-pointer transition-all duration-300';
+    const cssPadrao = 'bg-gray-100 p-3 rounded-lg justify-center items-center border-2 border-gray-200 flex flex-col gap-1 w-full text-gray-700 cursor-pointer hover:border-gray-300 hover:bg-gray-200/50 transition-all duration-300';
 
 
     return (
-
-        <>
-            <div className='w-full bg-linear-65 p-8 from-primary to-primary border-2 border-primary text-white rounded-lg shadow-lg grid grid-cols-1 lg:grid-cols-2 gap-4 mb-10 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 '>
-                <div className='flex flex-col relative'>
-                    <div className='opacity-40 flex gap-2 items-center justify-start'>
-                        <div className='bg-blue-200 rounded-full h-3 w-3'></div>
-                        <div className='bg-blue-200 rounded-full h-3 w-3'></div>
-                        <div className='bg-blue-200 rounded-full h-3 w-3'></div>
-                    </div>
-                    <h3 className='text-md uppercase opacity-60 font-extralight mt-6'>Descubra qual o pacote</h3>
-                    <h1 className='text-5xl font-semibold'><strong className='text-amber-400 uppercase'>Perfeito</strong> para você</h1>
-                    <h2 className='text-lg font-light mt-2 text-blue-200'>Configure a melhor forma de tirar a sua CNH!</h2>
-
-                    <fieldset className='mt-8 flex flex-col lg:flex-row gap-3'>
-                        <legend className='mb-4 text-xl text-blue-200'>{`>> Escolha o plano:`}</legend>
-                        <div key={'carroMoto'} className={tipo === 'carroMoto' ? cssSelecionado : cssPadrao} onClick={() => setTipo("carroMoto")}>
-                            <div className='flex gap-2'>
-                                <span className="material-symbols-outlined !text-4xl">
-                                    directions_car
-                                </span>
-                                <span className="material-symbols-outlined !text-4xl">
-                                    two_wheeler
-                                </span>
-                            </div>
-
-                            <input
-                                type='radio'
-                                name="drone"
-                                value={'carroMoto'}
-
-                                className='hidden'
-                                readOnly
-                                id="carroMoto"
-                                checked={tipo === 'carroMoto'}
-                            />
-                            <label htmlFor='carroMoto' className='text-lg font-light'>Carro e moto</label>
-                        </div>
-                        <div key={'moto'} className={tipo === 'moto' ? cssSelecionado : cssPadrao} onClick={() => setTipo("moto")}>
-                            <span className="material-symbols-outlined !text-4xl">
-                                two_wheeler
-                            </span>
-                            <input
-                                readOnly
-                                type='radio'
-                                name="drone"
-                                value={'moto'}
-                                id="moto"
-                                checked={tipo === 'moto'}
-                                className='hidden'
-                            />
-                            <label htmlFor='moto' className='text-lg'>Moto</label>
-                        </div>
-                        <div key={'carro'} className={tipo === 'carro' ? cssSelecionado : cssPadrao} onClick={() => setTipo("carro")}>
-                            <span className="material-symbols-outlined !text-4xl">
+        <div className='w-full bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex flex-col gap-3 transition-all duration-300'>
+            <div className='flex flex-col relative'>
+                <div className='opacity-100 flex gap-2 items-center justify-start mb-3'>
+                    <div className='bg-gray-300 rounded-full h-2 w-2'></div>
+                    <div className='bg-gray-300 rounded-full h-2 w-2'></div>
+                    <div className='bg-gray-300 rounded-full h-2 w-2'></div>
+                </div>
+                <p className='text-lg font-semibold text-gray-800 mb-2'>{`>> Escolha o plano:`}</p>
+                <div className='flex flex-col lg:flex-row gap-2'>
+                    <div key={'carroMoto'} className={tipo === 'carroMoto' ? cssSelecionado : cssPadrao} onClick={() => setTipo("carroMoto")}>
+                        <div className='flex gap-2'>
+                            <span className="material-symbols-outlined !text-3xl">
                                 directions_car
                             </span>
-                            <input
-                                readOnly
-                                type='radio'
-                                name="drone"
-                                value={'carro'}
-                                className='hidden'
-                                id="carro"
-                                checked={tipo === 'carro'}
-                            />
-                            <label htmlFor='carro' className='text-lg'>Carro</label>
+                            <span className="material-symbols-outlined !text-3xl">
+                                two_wheeler
+                            </span>
                         </div>
-                    </fieldset>
-                    <RenderInputs />
-                    <div className='mt-3 gap-4 flex flex-col'>
-                        <label htmlFor='numeroParcelas' className='mt-6 text-lg font-medium'>Número de parcelas: {numeroParcelas}</label>
-                        <input type="range" name="numeroParcelas" value={numeroParcelas} min={1} max={numeroParcelasMaximo} onChange={(e) => setNumeroParcelas(Number(e.target.value))} />
-                        <p className='text-sm font-light mt-2 text-blue-200'>Parcelamento em até {numeroParcelasSemJuros}x é SEM JUROS</p>
+
+                        <input
+                            type='radio'
+                            name="drone"
+                            value={'carroMoto'}
+
+                            className='hidden'
+                            readOnly
+                            id="carroMoto"
+                            checked={tipo === 'carroMoto'}
+                        />
+                        <label htmlFor='carroMoto' className={tipo === 'carroMoto' ? 'text-base font-light text-white' : 'text-base font-light text-gray-700'}>Carro e moto</label>
                     </div>
-                    {testDescontoAula && <DivDescontoAula />}
-                    {temDescontoAluguel && <DivDescontoVeiculo />}
+                    <div key={'moto'} className={tipo === 'moto' ? cssSelecionado : cssPadrao} onClick={() => setTipo("moto")}>
+                        <span className="material-symbols-outlined !text-3xl">
+                            two_wheeler
+                        </span>
+                        <input
+                            readOnly
+                            type='radio'
+                            name="drone"
+                            value={'moto'}
+                            id="moto"
+                            checked={tipo === 'moto'}
+                            className='hidden'
+                        />
+                        <label htmlFor='moto' className={tipo === 'moto' ? 'text-base font-light text-white' : 'text-base font-light text-gray-700'}>Moto</label>
+                    </div>
+                    <div key={'carro'} className={tipo === 'carro' ? cssSelecionado : cssPadrao} onClick={() => setTipo("carro")}>
+                        <span className="material-symbols-outlined !text-3xl">
+                            directions_car
+                        </span>
+                        <input
+                            readOnly
+                            type='radio'
+                            name="drone"
+                            value={'carro'}
+                            className='hidden'
+                            id="carro"
+                            checked={tipo === 'carro'}
+                        />
+                        <label htmlFor='carro' className={tipo === 'carro' ? 'text-base font-light text-white' : 'text-base font-light text-gray-700'}>Carro</label>
+                    </div>
                 </div>
+                <RenderInputs />
+                <div className='mt-2 gap-3 flex flex-col'>
+                    <label htmlFor='numeroParcelas' className='mt-3 text-base font-medium text-gray-800'>Número de parcelas: <span className='text-primary font-semibold'>{numeroParcelas}</span></label>
+                    <input type="range" name="numeroParcelas" value={numeroParcelas} min={1} max={numeroParcelasMaximo} onChange={(e) => setNumeroParcelas(Number(e.target.value))} className='accent-primary' />
+                    <p className='text-xs font-light text-gray-600'>Parcelamento em até {numeroParcelasSemJuros}x é SEM JUROS</p>
+                </div>
+                {testDescontoAula && <DivDescontoAula />}
+                {temDescontoAluguel && <DivDescontoVeiculo />}
+            </div>
+            <div className='border-t border-gray-200 pt-4'>
                 <Part2 />
             </div>
-            {/* ------------------------------------------------ */}
-            <Warning />
-        </>
+        </div>
 
     )
 }
