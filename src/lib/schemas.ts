@@ -46,12 +46,6 @@ export const mainSchema: SchemaConfig = {
             ],
             "opens": "08:00",
             "closes": "18:00"
-        },
-        {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": "Saturday",
-            "opens": "08:00",
-            "closes": "12:00"
         }
     ],
     "sameAs": [
@@ -77,7 +71,7 @@ export const ratingSchema: SchemaConfig = {
     "@context": "https://schema.org",
     "@type": "AggregateRating",
     "ratingValue": "4.9",
-    "reviewCount": "500"
+    "reviewCount": "234"
     // Exemplo de uso: adicione ao mainSchema como "aggregateRating": ratingSchema
 };
 
