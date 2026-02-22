@@ -12,22 +12,22 @@ const links = [
 
 <div class="fixed top-0 w-full flex justify-center z-50">
     <header
-        class="w-full max-w-6xl mx-4 mt-3 bg-white backdrop-blur-xl z-40 border border-white/20 rounded-lg shadow-2xl"
+        class="flex w-full bg-white backdrop-blur-xl z-40 border justify-center items-center border-white/20 shadow-2xl h-20 transition-all duration-150"
     >
-        <div class="h-16 sm:h-20 px-6 flex items-center justify-between">
+        <div class="px-6 flex items-center w-full justify-between">
             <!-- Logo -->
-            <div class="flex items-center gap-3">
+            <a class="flex items-center gap-3 cursor-pointer" href="/#">
                 <img
                     class="h-9 w-9 sm:h-10 sm:w-10"
                     src="/favicon.png"
                     alt="Autoescola Danda Logo"
                 />
-                <a class="text-lg sm:text-xl font-semibold tracking-tight">
-                    Autoescola <span class="text-amber-400 font-bold"
+                <p class="text-lg sm:text-xl font-semibold tracking-tight">
+                    Autoescola <span class="text-primary font-bold"
                         >Danda</span
                     >
-                </a>
-            </div>
+                </p>
+            </a>
 
             <!-- Desktop Menu -->
             <nav class="hidden xl:flex items-center gap-8 text-sm font-medium">
@@ -108,6 +108,8 @@ const links = [
     const menu = document.getElementById("menu-mobile");
     const overlay = document.getElementById("overlay");
 
+    let lastScrollY = window.scrollY;
+
     function openMenu() {
         document.body.style.overflow = "hidden";
         menu.classList.remove("translate-x-full");
@@ -119,6 +121,23 @@ const links = [
         menu.classList.add("translate-x-full");
         overlay.classList.add("hidden");
     }
+
+    document.addEventListener("scroll", () => {
+        const header = document.querySelector("header");
+        if(!header) return;
+        if (window.scrollY > lastScrollY) {
+            header.classList.remove("h-20");
+            header.classList.add("h-0");
+            setTimeout(() => {
+                header.classList.add("hidden");
+            }, 100);
+        } else {
+            header.classList.remove("hidden");
+            header.classList.add("h-20");
+            header.classList.remove("h-0");
+        }
+        lastScrollY = window.scrollY;
+    });
 
     toggle?.addEventListener("click", openMenu);
     overlay?.addEventListener("click", closeMenu);

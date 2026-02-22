@@ -1,0 +1,105 @@
+---
+// Número do WhatsApp em constante
+const WHATSAPP_NUMBER = "5567981368080"; // Substituir pelo número real
+
+// Dados dos botões CTA com mensagens pré-preenchidas
+const ctaButtons = [
+  {
+    id: 1,
+    label: "Quero tirar minha primeira CNH",
+    message: "Olá! Gostaria de informações sobre como tirar minha primeira CNH. Qual é o valor do curso?",
+    icon: "assignment",
+  },
+  {
+    id: 2,
+    label: "Quero adicionar categoria",
+    message: "Oi! Tenho interesse em adicionar uma nova categoria na minha CNH. Como funciona o processo?",
+    icon: "directions_car",
+  },
+  {
+    id: 3,
+    label: "Quero fazer curso especializado",
+    message: "Olá! Gostaria de saber mais sobre os cursos especializados oferecidos. Quais as opções disponíveis?",
+    icon: "school",
+  },
+];
+
+// Função para gerar o link do WhatsApp
+const generateWhatsAppLink = (message: string): string => {
+  const encodedMessage = encodeURIComponent(message);
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+};
+---
+
+<section class="w-full py-12 md:py-16 lg:py-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Título da seção -->
+    <div class="text-center mb-12 md:mb-16">
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+        Pronto para dar o próximo passo?
+      </h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Escolha a opção que melhor se adequa às suas necessidades e converse com nossos especialistas
+      </p>
+    </div>
+
+    <!-- Grid de botões -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      {
+        ctaButtons.map((button) => (
+          <a
+            href={generateWhatsAppLink(button.message)}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group relative rounded-lg border-2 border-transparent bg-white p-6 md:p-8 shadow-lg transition-all duration-300 ease-out hover:border-primary hover:shadow-2xl hover:-translate-y-1"
+          >
+            <!-- Icone -->
+            <span class="material-symbols-outlined !text-4xl text-primary mb-4">
+              {button.icon}
+            </span>
+
+            <!-- Texto do botão -->
+            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 group-hover:text-primary transition-colors duration-300">
+              {button.label}
+            </h3>
+
+            <!-- Mensagem preview (escondida em mobile) -->
+            <p class="hidden md:block text-sm text-gray-600 mb-6 line-clamp-2">
+              Mensagem: "{button.message}"
+            </p>
+
+            <!-- CTA visual -->
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-semibold text-primary group-hover:text-primary-dark transition-colors">
+                Conversar agora
+              </span>
+              <svg
+                class="w-5 h-5 text-primary transform transition-transform duration-300 group-hover:translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M14 5l7 7m0 0l-7 7m7-7H3"
+                />
+              </svg>
+            </div>
+
+            <!-- Efeito de fundo no hover -->
+            <div class="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
+          </a>
+        ))
+      }
+    </div>
+
+    <!-- Mensagem adicional -->
+    <div class="mt-12 md:mt-16 text-center">
+      <p class="text-gray-600 text-sm md:text-base">
+        Responderemos em até 2 horas durante o horário comercial
+      </p>
+    </div>
+  </div>
+</section>
