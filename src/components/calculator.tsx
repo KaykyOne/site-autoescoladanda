@@ -4,7 +4,7 @@ type tipos = 'carroMoto' | 'moto' | 'carro'
 const valorOriginalAula = 150
 const custoAluguelPorVeiculo = 49.99;
 const numeroParcelasMaximo = 18;
-const numeroParcelasSemJuros = 6;
+const numeroParcelasSemJuros = 3;
 
 const taxas: Record<number, number> = {
     1: 3.51,
@@ -140,20 +140,27 @@ export default function Calculator() {
                 aulasTotais = numAulasCarro + numAulasMoto;
             }
         }
-        if (aulasTotais >= 10 && aulasTotais < 15) {
-            valorAulaLocal = valorOriginalAula * 0.9;
+        if (aulasTotais > 4 && aulasTotais <= 6) {
+            valorAulaLocal = valorOriginalAula * 0.88889;
+            console.log(valorAulaLocal);
+        }
+        else if (aulasTotais >= 7 && aulasTotais < 10) {
+            valorAulaLocal = valorOriginalAula * 0.75;
+        }
+        else if (aulasTotais >= 10) {
+            valorAulaLocal = valorOriginalAula * 0.6666;
         }
         else if (aulasTotais >= 15 && aulasTotais < 20) {
-            valorAulaLocal = valorOriginalAula * 0.85;
             valorAluguel = valorAluguel / 2 - 0.01;
         }
         else if (aulasTotais >= 20) {
-            valorAulaLocal = valorOriginalAula * 0.8;
             valorAluguel = 0;
         } else {
             valorAulaLocal = valorOriginalAula;
             valorAluguel = calcularCustoAluguel();
         }
+        console.log(valorAulaLocal);
+
         setAulasTotaisSoma(aulasTotais)
         const valorT = ((aulasTotais * valorAulaLocal) + valorAluguel)
         setValorAula(valorAulaLocal);
@@ -279,13 +286,52 @@ export default function Calculator() {
         <div className='flex flex-col gap-1'>
             <h1 className='text-3xl lg:text-5xl font-semibold text-gray-900'>{formatter.format(valorTotal)}</h1>
             {numeroParcelas > 1 ? <p className='mt-1 opacity-80 font-light text-sm text-gray-600'>ou em <strong className='uppercase font-semibold text-lg text-gray-800'>{numeroParcelas}x</strong> de <strong className='uppercase font-semibold text-lg text-primary'>{formatter.format(valorTotal / numeroParcelas)}</strong> {valorTotal == valorTotalSemJuros ? 'SEM JUROS' : 'com juros'}</p> : <p className='text-sm text-gray-600'>A vista</p>}
-            <h3 className='text-xs mt-2 text-gray-600'>Valor por aula aproximado:</h3>
-            <h1 className='text-lg font-semibold text-primary'>{formatter.format(valorPorAula)}</h1>
-            <Detalhes />
-            <p className='text-xs mt-2 text-gray-500'>* Os valores apresentados não incluem taxas e exames adicionais.</p>
+            <details className='mt-5'>
+                <summary className='cursor-pointer text-sm text-gray-600 flex justify-between items-center'>
+                    <div className='flex gap-2 items-center -ml-2'>
+                        <span className="material-symbols-outlined">
+                            arrow_right
+                        </span>
+                        Como é calculado o valor?
+                    </div>
+                    <span className="material-symbols-outlined">
+                        touch_app
+                    </span>
+                </summary>
+                <div className=' border-l border-neutral-400 p-4'>
+                    <h3 className='text-xs mt-2 text-gray-600'>Valor por aula aproximado:</h3>
+                    <h1 className='text-lg font-semibold text-primary'>{formatter.format(valorPorAula)}</h1>
+                    <h3 className='text-xs mt-2 text-gray-600'>{`Valor Atual do Aluguel do(s) veiculo(s)`}</h3>
+                    <h1 className='text-lg font-semibold text-primary'>{valorAluguel > 0 ? formatter.format(valorAluguel) : 'Grátis!'}
+                        <p className='text-xs text-gray-500'>* O aluguel é incluso no valor do plano!</p>
+                        <p className="text-xs text-gray-500">
+                            * O valor do aluguel incluído neste pacote é válido apenas para o primeiro exame de cada categoria. Em caso de reprovação, será necessário efetuar um novo pagamento do aluguel.
+                        </p>
+                    </h1>
+                </div>
+            </details>
+            <details className='mt-5 cursor-pointer text-sm text-gray-600'>
+                <summary className='cursor-pointer text-sm text-gray-600 flex justify-between items-center'>
+                    <div className='flex gap-2 items-center -ml-2'>
+                        <span className="material-symbols-outlined">
+                            arrow_right
+                        </span>
+                        O que está incluso no plano?
+                    </div>
+                    <span className="material-symbols-outlined">
+                        touch_app
+                    </span>
+                </summary>
+                <div className='border-l border-neutral-400 p-4'>
+                    <Detalhes />
+                    <p className='text-xs mt-2 text-gray-500'>* Os valores apresentados não incluem taxas e exames adicionais.</p>
+                </div>
+            </details>
+
             <Buttons />
         </div>
     )
+
 
     const descontoAluguelValor = calcularCustoAluguel() - valorAluguel;
     const temDescontoAluguel = descontoAluguelValor > 0;
@@ -306,7 +352,7 @@ export default function Calculator() {
                     <div className='bg-gray-300 rounded-full h-2 w-2'></div>
                     <div className='bg-gray-300 rounded-full h-2 w-2'></div>
                 </div>
-                <p className='text-lg font-semibold text-gray-800 mb-2'>{`>> Escolha o plano:`}</p>
+                <p className='text-lg font-semibold text-gray-800 mb-2'>{`Escolha o plano:`}</p>
                 <div className='flex flex-col lg:flex-row gap-2'>
                     <div key={'carroMoto'} className={tipo === 'carroMoto' ? cssSelecionado : cssPadrao} onClick={() => setTipo("carroMoto")}>
                         <div className='flex gap-2'>
